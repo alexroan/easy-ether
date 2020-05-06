@@ -24,15 +24,16 @@ class App extends Component {
     }
 
     if(web3 !== null) {
-      loadAccount(dispatch, web3).then( async (account) =>{
+        loadAccount(dispatch, web3).then( async (account) =>{
         await loadBalance(dispatch, web3, account);
       });
     }
+    
 
     return (
       <div className="App">
         <header className="App-header">
-          { loadedBalance != null ? <p>Account Loaded<br />Balance: {loadedBalance} ETH</p> 
+          { loadedBalance != null ? <p>Account Loaded<br />Balance: {web3.utils.fromWei(loadedBalance, 'ether')} ETH</p> 
             : 
           <form onSubmit={loginTorus}>
             <button type="submit" className="w-100 btn btn-primary">
