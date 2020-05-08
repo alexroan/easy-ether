@@ -11,10 +11,11 @@ export function loggingIn(){
     }
 }
 
-export function loggedIn(web3){
+export function loggedIn(web3, userInfo){
     return {
         type: 'LOGGED_IN',
-        web3
+        web3,
+        userInfo
     }
 }
 
@@ -29,5 +30,27 @@ export function balanceLoaded(balance){
     return {
         type: 'BALANCE_LOADED',
         balance
+    }
+}
+
+export function coinGeckoLoaded(coinGecko){
+    return {
+        type: 'COINGECKO_LOADED',
+        coinGecko
+    }
+}
+
+export function tabChosen(tab){
+    return {
+        type: 'TAB_CHOSEN',
+        tab
+    }
+}
+
+export function currencyChosen(currency, symbol){
+    return {
+        type: 'CURRENCY_CHOSEN',
+        currency,
+        symbol
     }
 }
