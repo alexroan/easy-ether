@@ -24,11 +24,17 @@ export const accountSelector = createSelector(account, w => w);
 const balance = state => get(state, 'account.balance', null);
 export const balanceSelector = createSelector(balance, w => w);
 
+const loadingFiatBalance = state => get(state, 'account.loadingFiatBalance', false);
+export const loadingFiatBalanceSelector = createSelector(loadingFiatBalance, w => w);
+
+const fiatBalance = state => get(state, 'account.fiatBalance', null);
+export const fiatBalanceSelector = createSelector(fiatBalance, w => w);
+
 //DISPLAY
 const tab = state => get(state, 'display.tab', null);
 export const tabSelector = createSelector(tab, w => w);
 
-const currency = state => get(state, 'display.currency', 'GBP');
+const currency = state => get(state, 'display.currency', 'gbp');
 export const currencySelector = createSelector(currency, w => w);
 
 const currencySymbol = state => get(state, 'display.currencySymbol', "£");

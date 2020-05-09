@@ -1,6 +1,7 @@
 import Torus from "@toruslabs/torus-embed";
-import {torusLoaded, loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, tabChosen, currencyChosen} from "./actions";
+import {torusLoaded, loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, tabChosen, currencyChosen, gettingFiatBalance, fiatBalanceLoaded} from "./actions";
 import Web3 from 'web3';
+import {convertWeiToEth} from '../helpers';
 
 const CoinGecko = require('coingecko-api');
 
@@ -34,6 +35,7 @@ export const login = async (dispatch, torus) => {
 export const loadCoinGecko = async (dispatch) => {
     const coinGecko = new CoinGecko();
     dispatch(coinGeckoLoaded(coinGecko));
+    return coinGecko;
 }
 
 export const loadAccount = async (dispatch, web3) => {
@@ -57,14 +59,15 @@ export const choseCurrency = async (dispatch, currency, currencySymbol) => {
     dispatch(currencyChosen(currency, currencySymbol));
 }
 
-export const getFiatBalance = async (dispatch, coinGecko, token, fiat, etherAmount) => {
-    // dispatch(gettingFiatBalance(fiat))
+export const getFiatBalance = async (dispatch, web3, coinGecko, token, fiat, etherAmount) => {
+    dispatch(gettingFiatBalance())
     let data = await coinGecko.simple.price({
         ids: [token],
         vs_currencies: [fiat],
     });
-    let totalFiatBalance = data.data[token][fiat] * etherAmount;
-    // dispatch(fiatBalanceLoaded(totalFiatBalance));
+    let totalFiatBalance = data.data[token][fiat] * convertWeiToEth(web3, etherAmount);
+    console.log(data, totalFiatBalance, token, fiat);
+    dispatch(fiatBalanceLoaded(totalFiatBalance));
     return data;
 }
 

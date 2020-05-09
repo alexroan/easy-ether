@@ -54,3 +54,16 @@ export function currencyChosen(currency, symbol){
         symbol
     }
 }
+
+export function gettingFiatBalance(){
+    return {
+        type: 'GETTING_FIAT_BALANCE'
+    }
+}
+
+export function fiatBalanceLoaded(balance){
+    return {
+        type: 'GOT_FIAT_BALANCE',
+        balance
+    }
+}

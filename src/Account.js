@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Card, Button, DropdownButton, Dropdown, Row, Col, Nav, ButtonGroup} from 'react-bootstrap';
-import { web3Selector, balanceSelector, userInfoSelector, torusSelector, accountSelector, coinGeckoSelector, tabSelector, currencySelector } from './redux/selectors';
-import { topupWallet, getFiatBalance, choseTab, choseCurrency } from './redux/interactions';
+import {Container, DropdownButton, Dropdown, Row, Col, Nav, ButtonGroup} from 'react-bootstrap';
+import { web3Selector, balanceSelector, userInfoSelector, torusSelector, accountSelector, coinGeckoSelector, tabSelector, currencySelector, loadingFiatBalanceSelector, fiatBalanceSelector, currencySymbolSelector } from './redux/selectors';
+import { choseTab, choseCurrency } from './redux/interactions';
 import SummaryTab from './SummaryTab';
 import TopupTab from './TopupTab';
 
@@ -11,16 +11,7 @@ import TopupTab from './TopupTab';
 class Account extends Component {
 
     render() {
-        const {dispatch, loadedBalance, web3, userInfo, torus, account, coinGecko, selectedTab, selectedCurrency} = this.props;
-
-        // let etherValue = web3.utils.fromWei(loadedBalance, 'ether');
-        // if (coinGecko !== null){
-        //     const fiatBalance = getFiatBalance(dispatch, coinGecko, 'ethereum', 'gbp', etherValue);
-        // }
-
-        const topUp = () => {
-            topupWallet(dispatch, torus, account)
-        }
+        const {dispatch, selectedTab, selectedCurrency, currencySymbol, fiatBalance} = this.props;
 
         const tabChosen = (tabName) => {
             choseTab(dispatch, tabName);
@@ -56,12 +47,12 @@ class Account extends Component {
                         <div>
                             <Col sm="12">
                                 <ButtonGroup>
-                                    <h2 className="pr-2">Balance: &pound;65</h2>
+                                    <h2 className="pr-2">Balance: {currencySymbol}{fiatBalance}</h2>
                                     {' '}
                                     <DropdownButton onSelect={(key) => currencyChosen(key)} id="dropdown-basic-button" title={selectedCurrency}>
-                                        <Dropdown.Item eventKey={["GBP", "£"]}>GBP</Dropdown.Item>
-                                        <Dropdown.Item eventKey={["EUR", "€"]}>EUR</Dropdown.Item>
-                                        <Dropdown.Item eventKey={["USD", "$"]}>USD</Dropdown.Item>
+                                        <Dropdown.Item eventKey={["gbp", "£"]}>GBP</Dropdown.Item>
+                                        <Dropdown.Item eventKey={["eur", "€"]}>EUR</Dropdown.Item>
+                                        <Dropdown.Item eventKey={["usd", "$"]}>USD</Dropdown.Item>
                                     </DropdownButton>
                                 </ButtonGroup>
                             </Col>
@@ -88,6 +79,9 @@ function mapStateToProps(state){
         account: accountSelector(state),
         coinGecko: coinGeckoSelector(state),
         selectedCurrency: currencySelector(state),
+        currencySymbol: currencySymbolSelector(state),
+        fiatBalanceLoading: loadingFiatBalanceSelector(state),
+        fiatBalance: fiatBalanceSelector(state)
 	}
 }
 

@@ -21,6 +21,10 @@ function account(state = {}, action) {
             return { ...state, account: action.account }
         case 'BALANCE_LOADED':
             return { ...state, balance: action.balance }
+        case 'GETTING_FIAT_BALANCE':
+            return { ...state, loadingFiatBalance: true }
+        case 'GOT_FIAT_BALANCE':
+            return { ...state, loadingFiatBalance: false, fiatBalance: action.balance}
         default:
             return state;
     }
