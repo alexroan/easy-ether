@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Spinner} from 'react-bootstrap';
-import { loggingInSelector } from './redux/selectors';
-import { initializeTorus, login } from './redux/interactions';
+import {Spinner, Container, Row, Col, Jumbotron, Button} from 'react-bootstrap';
+import { loggingInSelector, currencySelector } from './redux/selectors';
+import { loadWeb3 } from './redux/interactions';
 
 class Login extends Component {
     
@@ -10,18 +10,25 @@ class Login extends Component {
 
         const {dispatch, loggingIn} = this.props;
     
-        const loginTorus = async (e) => {
+        const login = async (e) => {
           e.preventDefault();
-          const torus = await initializeTorus(dispatch);
-          await login(dispatch, torus);
+          await loadWeb3(dispatch);
         }
 
         return (
-            <form onSubmit={loginTorus}>
-                <button type="submit" className="w-100 btn btn-primary">
-                    { loggingIn ? <><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />Logging in...</> : <>Login</> }
-                </button>
-            </form>
+            <Jumbotron>
+                <Container>
+                    <Row>
+                        <Col className="text-center">
+                            <h1>The easiest way to invest in crypto</h1>
+                            <Button onClick={login}>
+                                { loggingIn ? <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> : <>Login</> }
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>                
+            </Jumbotron>
+
         );
     }
 }

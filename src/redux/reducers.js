@@ -2,10 +2,10 @@ import {combineReducers} from 'redux';
 
 function app(state = {}, action) {
     switch (action.type) {
-        case 'TORUS_LOADED':
-            return { ...state, torus: action.torus }
         case 'COINGECKO_LOADED':
             return { ...state, coinGecko: action.coinGecko } 
+        case 'RAMP_LOADED':
+            return { ...state, ramp: action.ramp }
         default:
             return state;
     }
@@ -16,7 +16,7 @@ function account(state = {}, action) {
         case 'LOGGING_IN':
             return { ...state, loggingIn: true}
         case 'LOGGED_IN':
-            return { ...state, loggingIn: false, web3: action.web3, userInfo: action.userInfo }
+            return { ...state, loggingIn: false, web3: action.web3 }
         case 'ACCOUNT_LOADED':
             return { ...state, account: action.account }
         case 'BALANCE_LOADED':
@@ -41,8 +41,36 @@ function display(state = {}, action) {
     }
 }
 
+function topup(state = {}, action){
+    switch (action.type) {
+        case 'TOPUP_AMOUNT_CHANGED':
+            return { ...state, amount: action.amount}
+        default:
+            return state;
+    }
+}
+
+function send(state = {}, action){
+    switch (action.type) {
+        case 'ETH_SEND_RECIPIENT':
+            return { ...state, recipient: action.recipient}
+        case 'ETH_SEND_AMOUNT':
+            return { ...state, amount: action.amount}
+        case 'ETH_SEND_HASH':
+            return { ...state, hash: action.hash}
+        case 'ETH_SEND_RECEIPT':
+            return { ...state, receipt: action.receipt}
+        case 'ETH_SEND_CONFIRMATION':
+            return { ...state, confirmation: action.confirmation}
+        case 'ETH_SEND_ERROR':
+            return { ...state, error: action.error}
+        default:
+            return state;
+    }
+}
+
 const rootReducer = new combineReducers({
-    app, account, display
+    app, account, display, topup, send
 });
 
 export default rootReducer;

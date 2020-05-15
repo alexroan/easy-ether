@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, DropdownButton, Dropdown, Row, Col, Nav, ButtonGroup} from 'react-bootstrap';
-import { web3Selector, balanceSelector, userInfoSelector, torusSelector, accountSelector, coinGeckoSelector, tabSelector, currencySelector, loadingFiatBalanceSelector, fiatBalanceSelector, currencySymbolSelector } from './redux/selectors';
+import { web3Selector, balanceSelector, accountSelector, coinGeckoSelector, tabSelector, currencySelector, loadingFiatBalanceSelector, fiatBalanceSelector, currencySymbolSelector } from './redux/selectors';
 import { choseTab, choseCurrency } from './redux/interactions';
 import SummaryTab from './SummaryTab';
 import TopupTab from './TopupTab';
-
-
+import Send from './Send';
 
 class Account extends Component {
 
     render() {
         const {dispatch, selectedTab, selectedCurrency, currencySymbol, fiatBalance} = this.props;
+
+
 
         const tabChosen = (tabName) => {
             choseTab(dispatch, tabName);
@@ -27,19 +28,21 @@ class Account extends Component {
             if(tabName === 'topup' ){
                 printout = (<TopupTab />);
             }
+            else if (tabName === 'send'){
+                printout = (<Send />);
+            }
             return printout;
         }
 
         return (
-            <Container>
+            <Container className="py-4">
                 <Row>
                     <Col sm="3">
                         <Nav defaultActiveKey="summary" onSelect={(key) => tabChosen(key)} className="flex-md-column">
                             <Nav.Link eventKey="summary" >Summary</Nav.Link>
                             <Nav.Link eventKey="topup" >Top Up</Nav.Link>
-                            {/* <Button onClick={topUp}>Top Up</Button> */}
+                            <Nav.Link eventKey="send">Send</Nav.Link>
                             <Nav.Link eventKey="withdraw" disabled >Withdraw</Nav.Link>
-                            <Nav.Link eventKey="send" disabled>Send</Nav.Link>
                             <Nav.Link eventKey="invest" disabled>Invest</Nav.Link>
                         </Nav>
                     </Col>
@@ -47,12 +50,11 @@ class Account extends Component {
                         <div>
                             <Col sm="12">
                                 <ButtonGroup>
-                                    <h2 className="pr-2">Balance: {currencySymbol}{fiatBalance}</h2>
+                                    <h2 className="pr-2">Your Portfolio Value: {currencySymbol}{fiatBalance === null ? '...' : fiatBalance.toFixed(3)}</h2>
                                     {' '}
-                                    <DropdownButton onSelect={(key) => currencyChosen(key)} id="dropdown-basic-button" title={selectedCurrency}>
+                                    <DropdownButton onSelect={(key) => currencyChosen(key)} id="dropdown-basic-button" title={selectedCurrency.toUpperCase()}>
                                         <Dropdown.Item eventKey={["gbp", "£"]}>GBP</Dropdown.Item>
                                         <Dropdown.Item eventKey={["eur", "€"]}>EUR</Dropdown.Item>
-                                        <Dropdown.Item eventKey={["usd", "$"]}>USD</Dropdown.Item>
                                     </DropdownButton>
                                 </ButtonGroup>
                             </Col>
@@ -74,8 +76,6 @@ function mapStateToProps(state){
         selectedTab: tabSelector(state),
         loadedBalance: balanceSelector(state),
         web3: web3Selector(state),
-        userInfo: userInfoSelector(state),
-        torus: torusSelector(state),
         account: accountSelector(state),
         coinGecko: coinGeckoSelector(state),
         selectedCurrency: currencySelector(state),
