@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Spinner, Container, Row, Col, Jumbotron, Button} from 'react-bootstrap';
-import { loggingInSelector, currencySelector } from './redux/selectors';
+import { loggingInSelector } from './redux/selectors';
 import { loadWeb3 } from './redux/interactions';
 
 class Login extends Component {

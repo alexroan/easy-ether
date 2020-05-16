@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './App.css';
-import { web3Selector, balanceSelector, currencySelector } from './redux/selectors';
+import { balanceSelector } from './redux/selectors';
 import Account from './Account';
 import Login from './Login';
 import { Container, Navbar } from 'react-bootstrap';
