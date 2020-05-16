@@ -38,24 +38,14 @@ const currencySymbol = state => get(state, 'display.currencySymbol', "£");
 export const currencySymbolSelector = createSelector(currencySymbol, w => w);
 
 //TOPUP
-const topupAmount = state => get(state, 'topup.amount', 0);
-export const topupAmountSelector = createSelector(topupAmount, w => w);
+const topupOpen = state => get(state, 'topup.active', false);
+export const topupOpenSelector = createSelector(topupOpen, w => w);
 
-//SEND
-const ethSendAmount = state => get(state, 'send.amount', "");
-export const ethSendAmountSelector = createSelector(ethSendAmount, w => w);
+const topupError = state => get(state, 'topup.error', false);
+export const topupErrorSelector = createSelector(topupError, w => w);
 
-const ethSendRecipient = state => get(state, 'send.recipient', "");
-export const ethSendRecipientSelector = createSelector(ethSendRecipient, w => w);
+const topupSuccess = state => get(state, 'topup.success', false);
+export const topupSuccessSelector = createSelector(topupSuccess, w => w);
 
-const ethSendHash = state => get(state, 'send.hash', "");
-export const ethSendHashSelector = createSelector(ethSendHash, w => w);
-
-const ethSendReceipt = state => get(state, 'send.receipt', "");
-export const ethSendReceiptSelector = createSelector(ethSendReceipt, w => w);
-
-const ethSendConfirmation = state => get(state, 'send.confirmation', 0);
-export const ethSendConfirmationSelector = createSelector(ethSendConfirmation, w => w);
-
-const ethSendError = state => get(state, 'send.error', "");
-export const ethSendErrorSelector = createSelector(ethSendError, w => w);
+const topupResponse = state => get(state, 'topup.response', null);
+export const topupResponseSelector = createSelector(topupResponse, w => w);

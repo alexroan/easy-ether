@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import './App.css';
+import './App.scss';
 import { balanceSelector } from './redux/selectors';
 import Account from './Account';
 import Login from './Login';
-import { Container, Navbar } from 'react-bootstrap';
-
-
 
 class App extends Component {
 
@@ -15,12 +12,7 @@ class App extends Component {
 		const {loadedBalance} = this.props;
 
 		return (
-		<div className="App h-100">
-			<Navbar expand="lg" variant="light" bg="light">
-                <Container>
-                    <Navbar.Brand href="#">EasyInvest</Navbar.Brand>
-                </Container>
-            </Navbar>
+		<div className="app h-100">
 			{ loadedBalance != null ? <Account /> : <Login /> }
 		</div>
 		);

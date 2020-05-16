@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Spinner, Container, Row, Col, Jumbotron, Button} from 'react-bootstrap';
+import {Spinner, Container, Row, Col, Button} from 'react-bootstrap';
 import { loggingInSelector } from './redux/selectors';
 import { loadWeb3 } from './redux/interactions';
 
@@ -16,19 +16,15 @@ class Login extends Component {
         }
 
         return (
-            <Jumbotron>
-                <Container>
-                    <Row>
-                        <Col className="text-center">
-                            <h1>The easiest way to invest in crypto</h1>
-                            <Button onClick={login}>
-                                { loggingIn ? <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> : <>Login</> }
-                            </Button>
-                        </Col>
-                    </Row>
-                </Container>                
-            </Jumbotron>
-
+            <Container>
+                <Row>
+                    <Col className="text-center">
+                        <Button onClick={login}>
+                            { loggingIn ? <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> : <>Connect</> }
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }

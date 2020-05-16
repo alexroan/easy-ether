@@ -1,0 +1,24 @@
+
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+html {
+    height: 100%;
+    body {
+        height: 100%;
+        .web3modal-modal-lightbox{
+            z-index:0;
+        }
+        #root {
+            height: 100%;
+            .app {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                #account-address{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}

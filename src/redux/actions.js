@@ -39,13 +39,6 @@ export function coinGeckoLoaded(coinGecko){
     }
 }
 
-export function tabChosen(tab){
-    return {
-        type: 'TAB_CHOSEN',
-        tab
-    }
-}
-
 export function currencyChosen(currency, symbol){
     return {
         type: 'CURRENCY_CHOSEN',
@@ -67,52 +60,35 @@ export function fiatBalanceLoaded(balance){
     }
 }
 
-export function topupChanged(amount){
+export function rampOpened(){
     return {
-        type: 'TOPUP_AMOUNT_CHANGED',
-        amount
+        type: 'RAMP_OPENED'
     }
 }
 
-export function setEthRecipient(recipient){
+export function rampSuccess(response){
     return {
-        type: 'ETH_SEND_RECIPIENT',
-        recipient
+        type: 'RAMP_SUCCESS',
+        response
     }
 }
 
-export function setEthSendAmount(amount){
+export function rampClosed(response){
     return {
-        type: 'ETH_SEND_AMOUNT',
-        amount
+        type: 'RAMP_CLOSED',
+        response
     }
 }
 
-export function setEthSendTransactionHash(hash){
+export function rampFailed(response){
     return {
-        type: 'ETH_SEND_HASH',
-        hash
+        type: 'RAMP_FAILED',
+        response
     }
 }
 
-export function setEthSendReceipt(receipt){
+export function resetRamp(){
     return {
-        type: 'ETH_SEND_RECEIPT',
-        receipt
-    }
-}
-
-export function setEthSendConfirmation(receipt, confirmation){
-    return {
-        type: 'ETH_SEND_CONFIRMATION',
-        receipt,
-        confirmation
-    }
-}
-
-export function setEthSendError(error){
-    return {
-        type: 'ETH_SEND_ERROR',
-        error
+        type: 'RAMP_RESET'
     }
 }

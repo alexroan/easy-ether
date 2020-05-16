@@ -11,6 +11,23 @@ function app(state = {}, action) {
     }
 }
 
+function topup(state = {}, action) {
+    switch (action.type) {
+        case 'RAMP_OPENED':
+            return { ...state, active: true }
+        case 'RAMP_FAILED':
+            return { ...state, active: false, error: true, response: action.response }
+        case 'RAMP_CLOSED':
+            return { ...state, active: false, response: action.response }
+        case 'RAMP_SUCCESS':
+            return { ...state, active: false, success: true, response: action.response }
+        case 'RAMP_RESET':
+            return { ...state, active: false, error: false, success: false, response: null }
+        default:
+            return state;
+    }
+}
+
 function account(state = {}, action) {
     switch (action.type) {
         case 'LOGGING_IN':
@@ -32,8 +49,6 @@ function account(state = {}, action) {
 
 function display(state = {}, action) {
     switch (action.type) {
-        case 'TAB_CHOSEN':
-            return { ...state, tab: action.tab}
         case 'CURRENCY_CHOSEN':
             return { ...state, currency: action.currency, currencySymbol: action.symbol}
         default:
@@ -41,36 +56,8 @@ function display(state = {}, action) {
     }
 }
 
-function topup(state = {}, action){
-    switch (action.type) {
-        case 'TOPUP_AMOUNT_CHANGED':
-            return { ...state, amount: action.amount}
-        default:
-            return state;
-    }
-}
-
-function send(state = {}, action){
-    switch (action.type) {
-        case 'ETH_SEND_RECIPIENT':
-            return { ...state, recipient: action.recipient}
-        case 'ETH_SEND_AMOUNT':
-            return { ...state, amount: action.amount}
-        case 'ETH_SEND_HASH':
-            return { ...state, hash: action.hash}
-        case 'ETH_SEND_RECEIPT':
-            return { ...state, receipt: action.receipt}
-        case 'ETH_SEND_CONFIRMATION':
-            return { ...state, confirmation: action.confirmation}
-        case 'ETH_SEND_ERROR':
-            return { ...state, error: action.error}
-        default:
-            return state;
-    }
-}
-
 const rootReducer = new combineReducers({
-    app, account, display, topup, send
+    app, account, display, topup
 });
 
 export default rootReducer;
