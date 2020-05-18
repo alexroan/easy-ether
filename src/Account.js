@@ -3,30 +3,33 @@ import {connect} from 'react-redux';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import { accountSelector, topupOpenSelector, topupErrorSelector, topupSuccessSelector, topupResponseSelector } from './redux/selectors';
 import { topupWallet } from './redux/interactions';
+import FadeIn from 'react-fade-in';
 
 
 class Account extends Component {
 
     render() {
-        const {dispatch, account, topupOpen, topupError, topupSuccess, topupResponse} = this.props;
+        const {dispatch, account} = this.props;
 
         const topup = () => {
             topupWallet(dispatch, account);
         }
 
         return (
-            <Container>
-                <Row>
-                    <Col className="text-center">
-                        <p>
-                            <span id="account-address" className="text-truncate badge badge-pill badge-success">{account}</span>
-                        </p>
-                        <Button onClick={topup}>
-                            Topup
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
+            <FadeIn>
+                <Container>
+                    <Row>
+                        <Col className="text-center">
+                            <p>
+                                <span id="account-address" className="text-truncate badge badge-pill text-white">{account}</span>
+                            </p>
+                            <Button onClick={topup}>
+                                Topup
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </FadeIn>
         );
     }
 

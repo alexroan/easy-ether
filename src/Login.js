@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Spinner, Container, Row, Col, Button} from 'react-bootstrap';
-import { loggingInSelector } from './redux/selectors';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import { loadWeb3 } from './redux/interactions';
+import FadeIn from 'react-fade-in';
 
 class Login extends Component {
     
     render() {
 
-        const {dispatch, loggingIn} = this.props;
+        const {dispatch} = this.props;
     
         const login = async (e) => {
           e.preventDefault();
@@ -16,22 +16,23 @@ class Login extends Component {
         }
 
         return (
-            <Container>
-                <Row>
-                    <Col className="text-center">
-                        <Button onClick={login}>
-                            { loggingIn ? <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> : <>Connect</> }
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
+            <FadeIn>
+                <Container>
+                    <Row>
+                        <Col className="text-center">
+                            <Button onClick={login}>
+                                Connect
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </FadeIn>
         );
     }
 }
 
 function mapStateToProps(state){
 	return {
-        loggingIn: loggingInSelector(state),
 	}
 }
 

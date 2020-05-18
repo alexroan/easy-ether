@@ -1,4 +1,4 @@
-import { topupFail, topupClose, topupSuccess } from "./interactions";
+import { topupFail, topupClose, topupSuccess, loadAccount } from "./interactions";
 
 export const subscribeToRampEvents = (dispatch, ramp) => {
     ramp.on('WIDGET_CLOSE_REQUEST_CONFIRMED', (event) => {
@@ -16,5 +16,11 @@ export const subscribeToRampEvents = (dispatch, ramp) => {
 
     ramp.on('PURCHASE_FAILED', (event) => {
         topupFail(dispatch, event);
+    });
+}
+
+export const subscribeToAccountsChanging = async (dispatch, web3) => {
+    web3.currentProvider.on('accountsChanged', function (accounts) {
+        loadAccount(dispatch, web3);
     });
 }

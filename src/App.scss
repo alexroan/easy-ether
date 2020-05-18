@@ -12,11 +12,20 @@ html {
         #root {
             height: 100%;
             .app {
+                background: rgb(92,0,89);
+                background: linear-gradient(135deg, rgba(92,0,89,1) 0%, rgba(9,9,121,1) 100%);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 #account-address{
-                    width: 20%;
+                    width: 50%;
+                }
+
+                .btn-primary {
+                    padding: 1rem 2rem;
+                    border-radius: 2rem;
+                    background-color: transparent;
+                    border-color: white;
                 }
             }
         }

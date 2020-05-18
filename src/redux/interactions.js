@@ -1,46 +1,14 @@
 import {loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, currencyChosen, gettingFiatBalance, fiatBalanceLoaded, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp} from "./actions";
-import Web3 from 'web3';
-import Web3Modal from "web3modal";
-import Torus from "@toruslabs/torus-embed";
-import Portis from "@portis/web3";
-import Authereum from "authereum";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import {convertWeiToEth} from '../helpers';
-import { subscribeToRampEvents } from "./subscriptions";
+import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
+import { getWeb3 } from "../getWeb3";
 
 const CoinGecko = require('coingecko-api');
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
-    const providerOptions = {
-        authereum: {
-            package: Authereum
-        },
-        torus: {
-            package: Torus,
-            options:{
-                network: "mainnet"
-            }
-        },
-        portis: {
-            package: Portis,
-            options: {
-              id: "473d6802-8441-4550-8cf0-691717a699a0"
-            }
-        },
-        metamask: {
-            package: window.web3
-        }
-    };
-    
-    const web3Modal = new Web3Modal({
-        cacheProvider: false,
-        providerOptions: providerOptions,
-        theme: "dark"
-    });
-
-    const provider = await web3Modal.connect();
-    const web3 = new Web3(provider);
+    const web3 = await getWeb3();
     dispatch(loggedIn(web3));
     loadAccount(dispatch, web3);
     return web3;
@@ -50,6 +18,7 @@ export const loadAccount = async (dispatch, web3) => {
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     dispatch(accountLoaded(account));
+    subscribeToAccountsChanging(dispatch, web3);
     loadBalance(dispatch, web3, account);
     return account;
 }
