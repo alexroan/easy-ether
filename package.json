@@ -2,6 +2,7 @@
   "name": "onramp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alexroan.github.io/easy-ether/",
   "dependencies": {
     "@portis/web3": "^2.0.0-beta.55",
     "@ramp-network/ramp-instant-sdk": "^1.8.1",
@@ -12,6 +13,7 @@
     "authereum": "0.0.4-beta.141",
     "bootstrap": "^4.4.1",
     "coingecko-api": "^1.0.10",
+    "gh-pages": "^2.2.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -30,6 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
