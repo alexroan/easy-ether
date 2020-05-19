@@ -28,7 +28,7 @@ class App extends Component {
 							<SocialIcon className="mx-1" url="https://twitter.com/alexroan" />
 							<SocialIcon className="mx-1" url="https://github.com/alexroan" />
 							<SocialIcon className="mx-1" url="https://medium.com/@alexroan" />
-							<SocialIcon className="mx-1" network="email" url="alex.roan@hotmail.com" />
+							<SocialIcon className="mx-1" network="email" url="mailto:alex.roan@hotmail.com" />
 						</Col>
 					</Row>
 				</Container>
