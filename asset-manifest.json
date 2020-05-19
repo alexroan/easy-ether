@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/easy-ether/static/css/main.c514adf4.chunk.css",
+    "main.css": "/easy-ether/static/css/main.8c7943f3.chunk.css",
     "main.js": "/easy-ether/static/js/main.01f155c2.chunk.js",
     "main.js.map": "/easy-ether/static/js/main.01f155c2.chunk.js.map",
     "runtime-main.js": "/easy-ether/static/js/runtime-main.194e23fe.js",
@@ -8,15 +8,15 @@
     "static/js/2.25a31cdc.chunk.js": "/easy-ether/static/js/2.25a31cdc.chunk.js",
     "static/js/2.25a31cdc.chunk.js.map": "/easy-ether/static/js/2.25a31cdc.chunk.js.map",
     "index.html": "/easy-ether/index.html",
-    "precache-manifest.49a0f31a17ed521bd3e0a28d68248da6.js": "/easy-ether/precache-manifest.49a0f31a17ed521bd3e0a28d68248da6.js",
+    "precache-manifest.e56f41576f39717aa27863d7206f37e6.js": "/easy-ether/precache-manifest.e56f41576f39717aa27863d7206f37e6.js",
     "service-worker.js": "/easy-ether/service-worker.js",
-    "static/css/main.c514adf4.chunk.css.map": "/easy-ether/static/css/main.c514adf4.chunk.css.map",
+    "static/css/main.8c7943f3.chunk.css.map": "/easy-ether/static/css/main.8c7943f3.chunk.css.map",
     "static/js/2.25a31cdc.chunk.js.LICENSE.txt": "/easy-ether/static/js/2.25a31cdc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.194e23fe.js",
     "static/js/2.25a31cdc.chunk.js",
-    "static/css/main.c514adf4.chunk.css",
+    "static/css/main.8c7943f3.chunk.css",
     "static/js/main.01f155c2.chunk.js"
   ]
 }
