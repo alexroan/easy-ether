@@ -1,4 +1,4 @@
-
+$body-color: white;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -35,6 +35,18 @@ html {
                     }
                     &:focus{
                         box-shadow: none;
+                    }
+                }
+
+                footer{
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    a{
+                        color:white !important;
+                    }
+                    .social-svg-mask{
+                        fill:white !important;
                     }
                 }
             }
