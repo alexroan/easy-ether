@@ -12,6 +12,9 @@ export const rampSelector = createSelector(ramp, w => w);
 const loggingIn = state => get(state, 'account.loggingIn', false);
 export const loggingInSelector = createSelector(loggingIn, w => w);
 
+const loggingInError = state => get(state, 'account.error', false);
+export const loggingInErrorSelector = createSelector(loggingInError, w => w);
+
 const web3 = state => get(state, 'account.web3', null);
 export const web3Selector = createSelector(web3, w => w);
 

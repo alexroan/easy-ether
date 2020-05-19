@@ -31,9 +31,11 @@ function topup(state = {}, action) {
 function account(state = {}, action) {
     switch (action.type) {
         case 'LOGGING_IN':
-            return { ...state, loggingIn: true}
+            return { ...state, loggingIn: true, error: false}
         case 'LOGGED_IN':
             return { ...state, loggingIn: false, web3: action.web3 }
+        case 'LOGIN_FAILED':
+            return { ...state, loggingIn: false, error: action.error}
         case 'ACCOUNT_LOADED':
             return { ...state, account: action.account }
         case 'BALANCE_LOADED':

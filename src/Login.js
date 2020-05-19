@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Container, Row, Col, Button, Alert} from 'react-bootstrap';
 import { loadWeb3 } from './redux/interactions';
 import FadeIn from 'react-fade-in';
+import { loggingInErrorSelector, loggingInSelector } from './redux/selectors';
 
 class Login extends Component {
     
     render() {
 
-        const {dispatch} = this.props;
+        const {dispatch, loggingIn, loggingInError} = this.props;
     
         const login = async (e) => {
           e.preventDefault();
@@ -16,6 +17,7 @@ class Login extends Component {
         }
 
         return (
+
             <FadeIn>
                 <Container>
                     <Row>
@@ -23,6 +25,7 @@ class Login extends Component {
                             <Button onClick={login}>
                                 Connect
                             </Button>
+                            {loggingInError !== false && loggingIn === false ? <FadeIn><Alert className="my-2" variant="danger">Connect to wallet failure: {loggingInError.message}</Alert></FadeIn> : <></>}
                         </Col>
                     </Row>
                 </Container>
@@ -33,6 +36,8 @@ class Login extends Component {
 
 function mapStateToProps(state){
 	return {
+        loggingInError: loggingInErrorSelector(state),
+        loggingIn: loggingInSelector(state)
 	}
 }
 

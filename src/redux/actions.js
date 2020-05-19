@@ -11,6 +11,13 @@ export function loggedIn(web3){
     }
 }
 
+export function loginFailed(error){
+    return {
+        type: 'LOGIN_FAILED',
+        error
+    }
+}
+
 export function accountLoaded(account){
     return {
         type: 'ACCOUNT_LOADED',

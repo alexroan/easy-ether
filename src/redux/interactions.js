@@ -1,4 +1,4 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, currencyChosen, gettingFiatBalance, fiatBalanceLoaded, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, currencyChosen, gettingFiatBalance, fiatBalanceLoaded, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import {convertWeiToEth} from '../helpers';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
@@ -8,9 +8,15 @@ const CoinGecko = require('coingecko-api');
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
-    const web3 = await getWeb3();
-    dispatch(loggedIn(web3));
-    loadAccount(dispatch, web3);
+    let web3 = null;
+    try{
+        web3 = await getWeb3();
+        dispatch(loggedIn(web3));
+        loadAccount(dispatch, web3);
+    }
+    catch(error) {
+        dispatch(loginFailed(error));
+    }
     return web3;
 }
 

@@ -17,6 +17,13 @@ html {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                .navbar {
+                    span{
+                        color: white!important;
+                    }
+                }
+
                 #account-address{
                     width: 50%;
                 }
