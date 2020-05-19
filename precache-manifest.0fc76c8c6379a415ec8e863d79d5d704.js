@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "363d8a9c7df400f0d09ed6d45d179f1a",
+    "revision": "1c6d2e4b4d8687ddd587ff286638935a",
     "url": "/easy-ether/index.html"
   },
   {
-    "revision": "51ac4fa7948465e14a11",
+    "revision": "56a08739db2ff2a857f4",
     "url": "/easy-ether/static/css/main.b7f24ad9.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/easy-ether/static/js/2.ba946439.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "51ac4fa7948465e14a11",
-    "url": "/easy-ether/static/js/main.51fe36a7.chunk.js"
+    "revision": "56a08739db2ff2a857f4",
+    "url": "/easy-ether/static/js/main.8d91a4e7.chunk.js"
   },
   {
     "revision": "13a9768dc313cacfee47",
