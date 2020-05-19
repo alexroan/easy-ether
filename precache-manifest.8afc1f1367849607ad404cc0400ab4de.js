@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1c6d2e4b4d8687ddd587ff286638935a",
+    "revision": "479de30b583c4639f170f650cfddce85",
     "url": "/easy-ether/index.html"
   },
   {
