@@ -60,7 +60,7 @@ export const getFiatBalance = async (dispatch, web3, coinGecko, token, fiat, eth
 
 export const topupWallet = async (dispatch, account) => {
     const ramp = new RampInstantSDK({
-        hostAppName: 'EasyInvest',
+        hostAppName: 'Easy Ether',
         hostLogoUrl: 'https://alexroan.github.io/easy-ether/static/media/logo-white.86143c9b.png',
         variant: 'auto',
         userAddress: account
