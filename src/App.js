@@ -15,8 +15,13 @@ class App extends Component {
 
 		const {loadedBalance} = this.props;
 
+		let appClassName = "app h-100";
+		if (loadedBalance !== null) {
+			appClassName += " logged-in";
+		}
+
 		return (
-		<div className="app h-100">
+		<div className={appClassName}>
 			<Navbar fixed="top">
 				<FadeIn>
 					<Navbar.Brand>
