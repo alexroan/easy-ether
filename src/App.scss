@@ -39,8 +39,16 @@ html {
                 }
 
                 .navbar {
+                    .navbar-brand{
+                        opacity:1;
+                        transition: opacity 0.25s;
+                        &:hover{
+                            opacity: 0.75;
+                        }
+                    }
                     span{
                         color: white!important;
+                        cursor: default;
                     }
                 }
 
@@ -70,10 +78,22 @@ html {
                     bottom: 0;
                     width: 100%;
                     a{
+                        text-decoration: none;
+                        transition: opacity 0.25s;
                         color:white !important;
+                        &:hover{
+                            opacity: 0.75;
+                        }
                     }
-                    .social-svg-mask{
-                        fill:white !important;
+                    .social-svg{
+                        transition: opacity 0.25s;
+                        opacity: 1;
+                        &:hover{
+                            opacity: 0.75;
+                        }
+                        .social-svg-mask{
+                            fill:white !important;
+                        }
                     }
                 }
             }
