@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/easy-ether/static/css/main.13e7b5a7.chunk.css",
+    "main.css": "/easy-ether/static/css/main.b6d4c9cc.chunk.css",
     "main.js": "/easy-ether/static/js/main.9e29f479.chunk.js",
     "main.js.map": "/easy-ether/static/js/main.9e29f479.chunk.js.map",
     "runtime-main.js": "/easy-ether/static/js/runtime-main.194e23fe.js",
@@ -8,16 +8,16 @@
     "static/js/2.ba946439.chunk.js": "/easy-ether/static/js/2.ba946439.chunk.js",
     "static/js/2.ba946439.chunk.js.map": "/easy-ether/static/js/2.ba946439.chunk.js.map",
     "index.html": "/easy-ether/index.html",
-    "precache-manifest.e8a3abff47516aebb4e52a8f882eb93e.js": "/easy-ether/precache-manifest.e8a3abff47516aebb4e52a8f882eb93e.js",
+    "precache-manifest.c1c71e54f66326da8583d462698c6732.js": "/easy-ether/precache-manifest.c1c71e54f66326da8583d462698c6732.js",
     "service-worker.js": "/easy-ether/service-worker.js",
-    "static/css/main.13e7b5a7.chunk.css.map": "/easy-ether/static/css/main.13e7b5a7.chunk.css.map",
+    "static/css/main.b6d4c9cc.chunk.css.map": "/easy-ether/static/css/main.b6d4c9cc.chunk.css.map",
     "static/js/2.ba946439.chunk.js.LICENSE.txt": "/easy-ether/static/js/2.ba946439.chunk.js.LICENSE.txt",
     "static/media/logo-white.png": "/easy-ether/static/media/logo-white.86143c9b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.194e23fe.js",
     "static/js/2.ba946439.chunk.js",
-    "static/css/main.13e7b5a7.chunk.css",
+    "static/css/main.b6d4c9cc.chunk.css",
     "static/js/main.9e29f479.chunk.js"
   ]
 }
