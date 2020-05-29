@@ -1,4 +1,9 @@
-export const cEth = [
+export const addresses = {
+    "main": "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5",
+    "kovan": "0x41b5844f4680a8c38fbb695b7f9cfd1f64474a72"
+}
+
+export const cEthABI = [
     {
         "constant": true,
         "inputs": [],

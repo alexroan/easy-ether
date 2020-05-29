@@ -32,6 +32,13 @@ export function balanceLoaded(balance){
     }
 }
 
+export function setNetwork(network){
+    return {
+        type: 'NETWORK_LOADED',
+        network
+    }
+}
+
 export function cEthLoaded(cEthInstance){
     return {
         type: 'CETH_LOADED',
@@ -90,5 +97,19 @@ export function setInterestRate(apy){
     return {
         type: 'INTEREST_RATE_SET',
         apy
+    }
+}
+
+export function setCEthBalance(balance){
+    return {
+        type: 'CETH_BALANCE_SET',
+        balance
+    }
+}
+
+export function setSupplyValue(supplyValue){
+    return {
+        type: 'SUPPLY_VALUE_SET',
+        supplyValue
     }
 }

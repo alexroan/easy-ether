@@ -5,6 +5,9 @@ import {createSelector} from 'reselect';
 const ramp = state => get(state, 'app.ramp', null);
 export const rampSelector = createSelector(ramp, w => w);
 
+const cEthInstance = state => get(state, 'app.cEthInstance', null);
+export const cEthInstanceSelector = createSelector(cEthInstance, w => w);
+
 //ACCOUNT
 const loggingIn = state => get(state, 'account.loggingIn', false);
 export const loggingInSelector = createSelector(loggingIn, w => w);
@@ -44,3 +47,9 @@ export const topupResponseSelector = createSelector(topupResponse, w => w);
 //SAVE
 const apy = state => get(state, 'save.apy', "");
 export const apySelector = createSelector(apy, w => w);
+
+const cEthBalance = state => get(state, 'save.cEthBalance', 0);
+export const cEthBalanceSelector = createSelector(cEthBalance, w => w);
+
+const supplyValue = state => get(state, 'save.supplyValue', 0);
+export const supplyValueSelector = createSelector(supplyValue, w => w);

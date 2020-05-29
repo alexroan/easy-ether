@@ -1,8 +1,8 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
-import {cEth} from "../compound/abis/cEth.js";
+import {cEthABI, addresses} from "../compound/cEth.js";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
@@ -23,35 +23,57 @@ export const loadAccount = async (dispatch, web3) => {
     const account = accounts[0];
     dispatch(accountLoaded(account));
     subscribeToAccountsChanging(dispatch, web3);
-    loadBalance(dispatch, web3, account);
+    loadNetwork(dispatch, web3, account);
     return account;
 }
+
+export const loadNetwork = async (dispatch, web3, account) => {
+    const network = await web3.eth.net.getNetworkType();
+    dispatch(setNetwork(network));
+    loadBalance(dispatch, web3, account, network);
+    return network;
+}
   
-export const loadBalance = async (dispatch, web3, account) => {
+export const loadBalance = async (dispatch, web3, account, network) => {
     const balance = await web3.eth.getBalance(account);
     dispatch(balanceLoaded(balance));
-    loadCompoundEther(dispatch, web3);
+    loadCompoundEther(dispatch, web3, account, network);
     return balance;
 }
 
-export const loadCompoundEther = async (dispatch, web3) => {
+export const loadCompoundEther = async (dispatch, web3, account, network) => {
     // TODO - determine network first, then set the address
     // Currently only works on local fork of mainnet
-    const addr = "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5";
-    const cEthInstance = new web3.eth.Contract(cEth, addr);
+    const addr = addresses[network];
+    const cEthInstance = new web3.eth.Contract(cEthABI, addr);
     dispatch(cEthLoaded(cEthInstance));
-    calculateInterestRate(dispatch, cEthInstance);
+    calculateInterestRate(dispatch, cEthInstance, account);
     return cEthInstance;
 }
 
-export const calculateInterestRate = async (dispatch, cEthInstance) => {
+export const calculateInterestRate = async (dispatch, cEthInstance, account) => {
     const ethMantissa = 1e18;
     const blocksPerDay = 4 * 60 * 24;
     const daysPerYear = 365;
     const supplyRatePerBlock = await cEthInstance.methods.supplyRatePerBlock().call(); //1000000000
     const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
     dispatch(setInterestRate(supplyApy));
+    retrieveCEthBalance( dispatch, cEthInstance, account);
     return supplyApy;
+}
+
+export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
+    let cEthBalance = await cEthInstance.methods.balanceOf(account).call();
+    cEthBalance = (cEthBalance / 1e8);
+    dispatch(setCEthBalance(cEthBalance));
+    return cEthBalance;
+}
+
+export const supplyEth = async (dispatch, cEthInstance, account, supplyValue) => {
+    // console.log(cEthInstance, account);
+
+    const response = await cEthInstance.methods.mint().send({from: account, value: supplyValue});
+    console.log(response);
 }
 
 export const topupWallet = async (dispatch, account) => {

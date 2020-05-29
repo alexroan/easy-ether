@@ -5,7 +5,7 @@ function app(state = {}, action) {
         case 'RAMP_LOADED':
             return { ...state, ramp: action.ramp }
         case 'CETH_LOADED':
-            return { ...state, cEth: action.cEthInstance}
+            return { ...state, cEthInstance: action.cEthInstance}
         default:
             return state;
     }
@@ -32,6 +32,10 @@ function save(state = {}, action) {
     switch(action.type) {
         case 'INTEREST_RATE_SET':
             return { ...state, apy: action.apy}
+        case 'CETH_BALANCE_SET':
+            return { ...state, cEthBalance: action.balance}
+        case 'SUPPLY_VALUE_SET':
+            return { ...state, supplyValue: action.supplyValue}
         default:
             return state;
     }
@@ -49,6 +53,8 @@ function account(state = {}, action) {
             return { ...state, account: action.account }
         case 'BALANCE_LOADED':
             return { ...state, balance: action.balance }
+        case 'NETWORK_LOADED':
+            return { ...state, network: action.network }
         default:
             return state;
     }
