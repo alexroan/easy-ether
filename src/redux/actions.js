@@ -32,38 +32,17 @@ export function balanceLoaded(balance){
     }
 }
 
+export function cEthLoaded(cEthInstance){
+    return {
+        type: 'CETH_LOADED',
+        cEthInstance
+    }
+}
+
 export function rampLoaded(ramp){
     return {
         type: 'RAMP_LOADED',
         ramp
-    }
-}
-
-export function coinGeckoLoaded(coinGecko){
-    return {
-        type: 'COINGECKO_LOADED',
-        coinGecko
-    }
-}
-
-export function currencyChosen(currency, symbol){
-    return {
-        type: 'CURRENCY_CHOSEN',
-        currency,
-        symbol
-    }
-}
-
-export function gettingFiatBalance(){
-    return {
-        type: 'GETTING_FIAT_BALANCE'
-    }
-}
-
-export function fiatBalanceLoaded(balance){
-    return {
-        type: 'GOT_FIAT_BALANCE',
-        balance
     }
 }
 
@@ -97,5 +76,19 @@ export function rampFailed(response){
 export function resetRamp(){
     return {
         type: 'RAMP_RESET'
+    }
+}
+
+export function selectPage(page){
+    return {
+        type: 'PAGE_SELECTED',
+        page
+    }
+}
+
+export function setInterestRate(apy){
+    return {
+        type: 'INTEREST_RATE_SET',
+        apy
     }
 }

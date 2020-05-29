@@ -4,6 +4,7 @@ import {Container, Row, Col, Button, Alert} from 'react-bootstrap';
 import { loadWeb3 } from './redux/interactions';
 import FadeIn from 'react-fade-in';
 import { loggingInErrorSelector, loggingInSelector } from './redux/selectors';
+import { selectPage } from './redux/actions';
 
 class Login extends Component {
     
@@ -12,8 +13,9 @@ class Login extends Component {
         const {dispatch, loggingIn, loggingInError} = this.props;
     
         const login = async (e) => {
-          e.preventDefault();
-          await loadWeb3(dispatch);
+            e.preventDefault();
+            await loadWeb3(dispatch);
+            dispatch(selectPage("Account"));
         }
 
         return (

@@ -2,9 +2,6 @@ import {get} from 'lodash';
 import {createSelector} from 'reselect';
 
 //APP
-const coinGecko = state => get(state, 'app.coinGecko', null);
-export const coinGeckoSelector = createSelector(coinGecko, w => w);
-
 const ramp = state => get(state, 'app.ramp', null);
 export const rampSelector = createSelector(ramp, w => w);
 
@@ -24,21 +21,11 @@ export const accountSelector = createSelector(account, w => w);
 const balance = state => get(state, 'account.balance', null);
 export const balanceSelector = createSelector(balance, w => w);
 
-const loadingFiatBalance = state => get(state, 'account.loadingFiatBalance', false);
-export const loadingFiatBalanceSelector = createSelector(loadingFiatBalance, w => w);
-
-const fiatBalance = state => get(state, 'account.fiatBalance', null);
-export const fiatBalanceSelector = createSelector(fiatBalance, w => w);
 
 //DISPLAY
-const tab = state => get(state, 'display.tab', null);
-export const tabSelector = createSelector(tab, w => w);
+const page = state => get(state, 'display.page', "");
+export const pageSelector = createSelector(page, w => w);
 
-const currency = state => get(state, 'display.currency', 'gbp');
-export const currencySelector = createSelector(currency, w => w);
-
-const currencySymbol = state => get(state, 'display.currencySymbol', "£");
-export const currencySymbolSelector = createSelector(currencySymbol, w => w);
 
 //TOPUP
 const topupOpen = state => get(state, 'topup.active', false);
@@ -52,3 +39,8 @@ export const topupSuccessSelector = createSelector(topupSuccess, w => w);
 
 const topupResponse = state => get(state, 'topup.response', null);
 export const topupResponseSelector = createSelector(topupResponse, w => w);
+
+
+//SAVE
+const apy = state => get(state, 'save.apy', "");
+export const apySelector = createSelector(apy, w => w);

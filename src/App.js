@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './App.scss';
-import { balanceSelector } from './redux/selectors';
+import { balanceSelector, pageSelector } from './redux/selectors';
 import Account from './Account';
 import Login from './Login';
 import { Container, Row, Col, Image, Navbar } from 'react-bootstrap';
@@ -13,11 +13,11 @@ class App extends Component {
 
 	render() {
 
-		const {loadedBalance} = this.props;
+		const {loadedBalance, page} = this.props;
 
 		let appClassName = "app h-100";
-		if (loadedBalance !== null) {
-			appClassName += " logged-in";
+		if (page === "Account") {
+			appClassName += " account";
 		}
 
 		return (
@@ -37,7 +37,7 @@ class App extends Component {
 					</Navbar.Brand>
 				</FadeIn>
 			</Navbar>
-			{ loadedBalance != null ? <Account /> : <Login /> }
+			{ page === "" ? <Login /> : <Account /> }
 			<footer>
 				<Container>
 					<Row>
@@ -74,6 +74,7 @@ class App extends Component {
 function mapStateToProps(state){
 	return {
 		loadedBalance: balanceSelector(state),
+		page: pageSelector(state)
 	}
 }
 

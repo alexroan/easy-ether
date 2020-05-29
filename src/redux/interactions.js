@@ -1,10 +1,8 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, coinGeckoLoaded, currencyChosen, gettingFiatBalance, fiatBalanceLoaded, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
-import {convertWeiToEth} from '../helpers';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
-
-const CoinGecko = require('coingecko-api');
+import {cEth} from "../compound/abis/cEth.js";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
@@ -32,30 +30,28 @@ export const loadAccount = async (dispatch, web3) => {
 export const loadBalance = async (dispatch, web3, account) => {
     const balance = await web3.eth.getBalance(account);
     dispatch(balanceLoaded(balance));
-    loadCoinGecko(dispatch);
+    loadCompoundEther(dispatch, web3);
     return balance;
 }
 
-export const loadCoinGecko = async (dispatch) => {
-    const coinGecko = new CoinGecko();
-    dispatch(coinGeckoLoaded(coinGecko));
-    return coinGecko;
+export const loadCompoundEther = async (dispatch, web3) => {
+    // TODO - determine network first, then set the address
+    // Currently only works on local fork of mainnet
+    const addr = "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5";
+    const cEthInstance = new web3.eth.Contract(cEth, addr);
+    dispatch(cEthLoaded(cEthInstance));
+    calculateInterestRate(dispatch, cEthInstance);
+    return cEthInstance;
 }
 
-export const choseCurrency = async (dispatch, currency, currencySymbol) => {
-    dispatch(currencyChosen(currency, currencySymbol));
-}
-
-export const getFiatBalance = async (dispatch, web3, coinGecko, token, fiat, etherAmount) => {
-    dispatch(gettingFiatBalance())
-    let data = await coinGecko.simple.price({
-        ids: [token],
-        vs_currencies: [fiat],
-    });
-    console.log(data, token, fiat);
-    let totalFiatBalance = data.data[token][fiat] * convertWeiToEth(web3, etherAmount);
-    dispatch(fiatBalanceLoaded(totalFiatBalance));
-    return data;
+export const calculateInterestRate = async (dispatch, cEthInstance) => {
+    const ethMantissa = 1e18;
+    const blocksPerDay = 4 * 60 * 24;
+    const daysPerYear = 365;
+    const supplyRatePerBlock = await cEthInstance.methods.supplyRatePerBlock().call(); //1000000000
+    const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+    dispatch(setInterestRate(supplyApy));
+    return supplyApy;
 }
 
 export const topupWallet = async (dispatch, account) => {

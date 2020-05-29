@@ -1,47 +1,31 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Row, Col, Button} from 'react-bootstrap';
-import { accountSelector, topupOpenSelector, topupErrorSelector, topupSuccessSelector, topupResponseSelector } from './redux/selectors';
-import { topupWallet } from './redux/interactions';
-import FadeIn from 'react-fade-in';
+import { pageSelector } from './redux/selectors';
+import AccountOptions from './AccountOptions';
+import Save from './Save';
 
 
 class Account extends Component {
 
     render() {
-        const {dispatch, account} = this.props;
+        const {page} = this.props;
 
-        const topup = () => {
-            topupWallet(dispatch, account);
+        if (page === "Account") {
+            return <AccountOptions />;
         }
-
-        return (
-            <FadeIn>
-                <Container>
-                    <Row>
-                        <Col className="text-center">
-                            <p>
-                                <span id="account-address" className="text-truncate badge badge-pill text-white">{account}</span>
-                            </p>
-                            <Button onClick={topup}>
-                                Topup
-                            </Button>
-                        </Col>
-                    </Row>
-                </Container>
-            </FadeIn>
-        );
+        else if (page === "Save") {
+            return <Save />;
+        }
+        else {
+            return <>ERROR</>;
+        }
     }
 
 }
 
 function mapStateToProps(state){
 	return {
-        account: accountSelector(state),
-        topupOpen: topupOpenSelector(state),
-        topupError: topupErrorSelector(state),
-        topupSuccess: topupSuccessSelector(state),
-        topupResponse: topupResponseSelector(state)
+        page: pageSelector(state)
 	}
 }
 
