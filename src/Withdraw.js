@@ -30,7 +30,7 @@ class Withdraw extends Component{
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="basic-addon1">ETH</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl onChange={changeWithdrawValue} type="number" min="0" max={underlyingBalance} step="0.00001" aria-describedby="basic-addon1" />
+                                <FormControl onChange={changeWithdrawValue} type="number" min="0" max={ethUnderlyingBalance} step="0.00001" aria-describedby="basic-addon1" />
                             </InputGroup>
                             <Button onClick={withdraw}>
                                 Withdraw Savings
