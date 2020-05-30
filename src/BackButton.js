@@ -1,16 +1,16 @@
 import React from 'react';
 import { selectPage } from "./redux/actions"
+import { Button } from 'react-bootstrap';
 
 export function BackButton(props) {
 
     const {dispatch, pageName} = props;
 
-    const back = (e) => {
-        e.preventDefault();
+    const back = () => {
         dispatch(selectPage(pageName));
     }
 
     return (
-        <a href="/" onClick={back}>Back</a>
+        <p><Button onClick={back} size="sm">Back</Button></p>
     )
 }

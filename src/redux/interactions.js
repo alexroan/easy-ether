@@ -3,7 +3,6 @@ import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
 import {cEthABI, addresses} from "../compound/cEth.js";
-import { convertWeiToEth } from "../helpers";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());

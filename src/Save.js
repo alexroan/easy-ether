@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthBalanceSelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, underlyingBalanceSelector} from './redux/selectors';
-import { supplyEth } from './redux/interactions';
-import { convertWeiToEth, convertEthToWei } from './helpers';
-import { setSupplyValue, selectPage } from './redux/actions';
+import { web3Selector, apySelector, cEthBalanceSelector, balanceSelector, underlyingBalanceSelector} from './redux/selectors';
+import { convertWeiToEth } from './helpers';
+import { selectPage } from './redux/actions';
 import { BackButton } from './BackButton';
 
 class Save extends Component {
     render() {
-        const {dispatch, apy, cEthBalance, cEthInstance, account, balance, web3, supplyValue, underlyingBalance} = this.props;
+        const {dispatch, apy, cEthBalance, balance, web3, underlyingBalance} = this.props;
 
         const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
 
@@ -28,10 +27,10 @@ class Save extends Component {
 
         return (
             <FadeIn>
-                <BackButton dispatch={dispatch} pageName="Account" />
                 <Container>
                     <Row>
                         <Col className="text-center">
+                            <BackButton dispatch={dispatch} pageName="Account" />
                             <p>In Savings: {parseFloat(ethUnderlyingBalance).toFixed(5)} ETH</p>
                             <p>Current Interest Rate: {parseFloat(apy).toFixed(2)}% APY</p>
                         </Col>
@@ -53,13 +52,10 @@ class Save extends Component {
 function mapStateToProps(state){
 	return {
         web3: web3Selector(state),
-        account: accountSelector(state),
         balance: balanceSelector(state),
-        supplyValue: supplyValueSelector(state),
         apy: apySelector(state),
         cEthBalance: cEthBalanceSelector(state),
         underlyingBalance: underlyingBalanceSelector(state),
-        cEthInstance: cEthInstanceSelector(state)
 	}
 }
 

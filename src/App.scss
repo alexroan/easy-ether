@@ -32,7 +32,7 @@ html {
                     transition: opacity 1s ease-in-out;
                 }
 
-                &.account {
+                &.blue {
                     &:before {
                         opacity: 1;
                     }
@@ -62,6 +62,9 @@ html {
                 }
 
                 .btn-primary {
+                    &.btn-sm {
+                        padding: 0.25rem 0.5rem;
+                    }
                     padding: 1rem 2rem;
                     border-radius: 2rem;
                     background-color: transparent;

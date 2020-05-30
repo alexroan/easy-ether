@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthBalanceSelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector} from './redux/selectors';
+import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector} from './redux/selectors';
 import { supplyEth } from './redux/interactions';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { setSupplyValue } from './redux/actions';
+import { BackButton } from './BackButton';
 
 class Deposit extends Component {
     render() {
-        const {dispatch, apy, cEthBalance, cEthInstance, account, balance, web3, supplyValue} = this.props;
+        const {dispatch, apy, cEthInstance, account, balance, web3, supplyValue} = this.props;
         const weiSupplyValue = convertEthToWei(web3, supplyValue);
         const ethBalance = convertWeiToEth(web3, balance);
 
@@ -24,7 +25,7 @@ class Deposit extends Component {
                 <Container>
                     <Row>
                         <Col className="text-center">
-                            <p>Save</p>
+                            <BackButton dispatch={dispatch} pageName="Save" />
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="basic-addon1">ETH</InputGroup.Text>
@@ -50,7 +51,6 @@ function mapStateToProps(state){
         balance: balanceSelector(state),
         supplyValue: supplyValueSelector(state),
         apy: apySelector(state),
-        cEthBalance: cEthBalanceSelector(state),
         cEthInstance: cEthInstanceSelector(state)
 	}
 }
