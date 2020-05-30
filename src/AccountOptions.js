@@ -22,14 +22,13 @@ class AccountOptions extends Component {
                 <Container>
                     <Row>
                         <Col className="text-center">
-                            <p>
-                                <span id="account-address" className="text-truncate badge badge-pill text-white">{account}</span>
-                            </p>
                             <Button onClick={topup}>
                                 Topup
                             </Button>
+                        </Col>
+                        <Col className="text-center">
                             <Button onClick={save}>
-                                Earn Interest
+                                Savings
                             </Button>
                         </Col>
                     </Row>

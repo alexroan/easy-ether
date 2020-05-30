@@ -1,8 +1,9 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
 import {cEthABI, addresses} from "../compound/cEth.js";
+import { convertWeiToEth } from "../helpers";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
@@ -58,8 +59,15 @@ export const calculateInterestRate = async (dispatch, cEthInstance, account) => 
     const supplyRatePerBlock = await cEthInstance.methods.supplyRatePerBlock().call(); //1000000000
     const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
     dispatch(setInterestRate(supplyApy));
-    retrieveCEthBalance( dispatch, cEthInstance, account);
+    retrieveUnderlyingBalance(dispatch, cEthInstance, account);
     return supplyApy;
+}
+
+export const retrieveUnderlyingBalance = async (dispatch, cEthInstance, account) => {
+    const underlyingBalance = await cEthInstance.methods.balanceOfUnderlying(account).call();
+    dispatch(setUnderlyingBalance(underlyingBalance));
+    retrieveCEthBalance(dispatch, cEthInstance, account);
+    return underlyingBalance;
 }
 
 export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
@@ -70,8 +78,7 @@ export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
 }
 
 export const supplyEth = async (dispatch, cEthInstance, account, supplyValue) => {
-    // console.log(cEthInstance, account);
-
+    // TODO: proper response handling
     const response = await cEthInstance.methods.mint().send({from: account, value: supplyValue});
     console.log(response);
 }

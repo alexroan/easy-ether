@@ -51,5 +51,8 @@ export const apySelector = createSelector(apy, w => w);
 const cEthBalance = state => get(state, 'save.cEthBalance', 0);
 export const cEthBalanceSelector = createSelector(cEthBalance, w => w);
 
+const underlyingBalance = state => get(state, 'save.underlyingBalance', 0);
+export const underlyingBalanceSelector = createSelector(underlyingBalance, w => w);
+
 const supplyValue = state => get(state, 'save.supplyValue', 0);
 export const supplyValueSelector = createSelector(supplyValue, w => w);

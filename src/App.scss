@@ -52,8 +52,13 @@ html {
                     }
                 }
 
-                #account-address{
-                    width: 50%;
+                .input-group-text {
+                    color: white;
+                    background-color: transparent;
+                }
+                .form-control {
+                    color: white;
+                    background-color: transparent;
                 }
 
                 .btn-primary {

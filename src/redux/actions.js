@@ -107,6 +107,13 @@ export function setCEthBalance(balance){
     }
 }
 
+export function setUnderlyingBalance(underlyingBalance) {
+    return {
+        type: 'UNDERLYING_BALANCE_SET',
+        underlyingBalance
+    }
+}
+
 export function setSupplyValue(supplyValue){
     return {
         type: 'SUPPLY_VALUE_SET',

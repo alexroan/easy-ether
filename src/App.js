@@ -49,7 +49,7 @@ class App extends Component {
 					</Row>
 					<FadeIn>
 						<Row>
-							<Col className="text-center">
+							<Col className="text-center pb-2">
 								<SocialIcon className="mx-1" url="https://twitter.com/alexroan" />
 								<SocialIcon className="mx-1" url="https://github.com/alexroan" />
 								<SocialIcon className="mx-1" url="https://medium.com/@alexroan" />
@@ -57,13 +57,6 @@ class App extends Component {
 							</Col>
 						</Row>
 					</FadeIn>
-					<Row>
-						<Col className="text-center pb-2">
-							<FadeIn>
-								<small>ETH Donations: 0x52929847A44B243E7212a1ea8b505A436757d761</small>
-							</FadeIn>
-						</Col>
-					</Row>
 				</Container>
 			</footer>
 		</div>

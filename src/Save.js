@@ -2,44 +2,45 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthBalanceSelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector} from './redux/selectors';
+import { web3Selector, apySelector, cEthBalanceSelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, underlyingBalanceSelector} from './redux/selectors';
 import { supplyEth } from './redux/interactions';
 import { convertWeiToEth, convertEthToWei } from './helpers';
-import { setSupplyValue } from './redux/actions';
+import { setSupplyValue, selectPage } from './redux/actions';
+import { BackButton } from './BackButton';
 
 class Save extends Component {
     render() {
-        const {dispatch, apy, cEthBalance, cEthInstance, account, balance, web3, supplyValue} = this.props;
-        const ethBalance = convertWeiToEth(web3, balance);
-        const weiSupplyValue = convertEthToWei(web3, supplyValue);
+        const {dispatch, apy, cEthBalance, cEthInstance, account, balance, web3, supplyValue, underlyingBalance} = this.props;
 
-        const save = () => {
-            supplyEth(dispatch, cEthInstance, account, weiSupplyValue);
-        }
-
-        const changeSaveValue = (e) => dispatch(setSupplyValue(e.target.value));
+        const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
 
         const withdraw = () => {
             //TODO
             console.log("Withdraw");
         }
 
+        const deposit = () => {
+            dispatch(selectPage("Deposit"));
+        }
+
+        let depositBtn = <Button onClick={deposit}>Deposit</Button>;
         let withdrawBtn = <Button onClick={withdraw}>Withdraw</Button>;
 
         return (
             <FadeIn>
+                <BackButton dispatch={dispatch} pageName="Account" />
                 <Container>
                     <Row>
                         <Col className="text-center">
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text id="basic-addon1">ETH</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl onChange={changeSaveValue} type="number" min="0" max={ethBalance} step="0.00001" aria-describedby="basic-addon1" />
-                            </InputGroup>
-                            <Button onClick={save}>
-                                Earn {parseFloat(apy).toFixed(2)}% APY
-                            </Button>
+                            <p>In Savings: {parseFloat(ethUnderlyingBalance).toFixed(5)} ETH</p>
+                            <p>Current Interest Rate: {parseFloat(apy).toFixed(2)}% APY</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="text-center">
+                            {balance > 0 ? depositBtn : <></>}
+                        </Col>
+                        <Col className="text-center">
                             {cEthBalance > 0 ? withdrawBtn : <></>}
                         </Col>
                     </Row>
@@ -57,6 +58,7 @@ function mapStateToProps(state){
         supplyValue: supplyValueSelector(state),
         apy: apySelector(state),
         cEthBalance: cEthBalanceSelector(state),
+        underlyingBalance: underlyingBalanceSelector(state),
         cEthInstance: cEthInstanceSelector(state)
 	}
 }

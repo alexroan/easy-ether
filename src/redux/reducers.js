@@ -34,6 +34,8 @@ function save(state = {}, action) {
             return { ...state, apy: action.apy}
         case 'CETH_BALANCE_SET':
             return { ...state, cEthBalance: action.balance}
+        case 'UNDERLYING_BALANCE_SET':
+            return { ...state, underlyingBalance: action.underlyingBalance}
         case 'SUPPLY_VALUE_SET':
             return { ...state, supplyValue: action.supplyValue}
         default:
