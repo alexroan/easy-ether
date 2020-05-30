@@ -16,7 +16,7 @@ class App extends Component {
 		const {page} = this.props;
 
 		let appClassName = "app h-100";
-		if (page === "Account" || page === "Deposit") {
+		if (page === "Account" || page === "Deposit" || page === "Withdraw") {
 			appClassName += " blue";
 		}
 

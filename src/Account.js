@@ -4,6 +4,7 @@ import { pageSelector } from './redux/selectors';
 import AccountOptions from './AccountOptions';
 import Save from './Save';
 import Deposit from './Deposit';
+import Withdraw from './Withdraw';
 
 class Account extends Component {
 
@@ -17,10 +18,11 @@ class Account extends Component {
                 return <Save />;
             case "Deposit":
                 return <Deposit />;
+            case "Withdraw":
+                return <Withdraw />;
             default:
                 return <>ERROR</>;
         }
-
 
     }
 

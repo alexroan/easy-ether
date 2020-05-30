@@ -14,8 +14,7 @@ class Save extends Component {
         const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
 
         const withdraw = () => {
-            //TODO
-            console.log("Withdraw");
+            dispatch(selectPage("Withdraw"));
         }
 
         const deposit = () => {
@@ -31,7 +30,7 @@ class Save extends Component {
                     <Row>
                         <Col className="text-center">
                             <BackButton dispatch={dispatch} pageName="Account" />
-                            <p>In Savings: {parseFloat(ethUnderlyingBalance).toFixed(5)} ETH</p>
+                            <p>Savings Balance: {parseFloat(ethUnderlyingBalance).toFixed(5)}~ ETH</p>
                             <p>Current Interest Rate: {parseFloat(apy).toFixed(2)}% APY</p>
                         </Col>
                     </Row>

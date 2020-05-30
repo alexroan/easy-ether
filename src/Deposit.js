@@ -37,7 +37,6 @@ class Deposit extends Component {
                             </Button>
                         </Col>
                     </Row>
-
                 </Container>
             </FadeIn>
         )
