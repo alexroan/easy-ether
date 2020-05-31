@@ -81,7 +81,7 @@ export const supplyEth = async (dispatch, cEthInstance, account, supplyValue, we
         })
         .on('confirmation', (number, receipt) => {
             if (number < 4){
-                dispatch(depositConfirmation(number));
+                dispatch(depositConfirmation(number+1));
                 if (number === 3) {
                     dispatch(finishedDepositing());
                     loadBalance(dispatch, web3, account, network);
@@ -100,7 +100,7 @@ export const redeemEth = async (dispatch, cEthInstance, account, redeemAmount, w
         })
         .on('confirmation', (number, receipt) => {
             if(number < 4){
-                dispatch(withdrawConfirmation(number));
+                dispatch(withdrawConfirmation(number+1));
                 if(number === 3) {
                     dispatch(finishedWithdrawing());
                     loadBalance(dispatch, web3, account, network);

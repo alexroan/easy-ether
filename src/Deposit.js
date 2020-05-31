@@ -44,7 +44,7 @@ class Deposit extends Component {
             )
         }
 
-        return (depositing ? <FadeInSpinner confirmationNumber={confirmationNumber} /> : pageContent());
+        return (depositing ? <FadeInSpinner message={`Depositing ${supplyValue} ETH`} confirmationNumber={confirmationNumber} /> : pageContent());
 
     }
 }

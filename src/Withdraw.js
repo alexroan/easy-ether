@@ -46,7 +46,7 @@ class Withdraw extends Component{
             );
         }
 
-        return (withdrawing ? <FadeInSpinner confirmationNumber={confirmationNumber} /> : pageContent());
+        return (withdrawing ? <FadeInSpinner message={`Withdrawing ${redeemValue} ETH`} confirmationNumber={confirmationNumber} /> : pageContent());
 
     }
 }
