@@ -1,4 +1,4 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance, depositing, finishedDepositing, depositConfirmation} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
@@ -42,8 +42,6 @@ export const loadBalance = async (dispatch, web3, account, network) => {
 }
 
 export const loadCompoundEther = async (dispatch, web3, account, network) => {
-    // TODO - determine network first, then set the address
-    // Currently only works on local fork of mainnet
     const addr = addresses[network];
     const cEthInstance = new web3.eth.Contract(cEthABI, addr);
     dispatch(cEthLoaded(cEthInstance));
@@ -76,10 +74,24 @@ export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
     return cEthBalance;
 }
 
-export const supplyEth = async (dispatch, cEthInstance, account, supplyValue) => {
+export const supplyEth = async (dispatch, cEthInstance, account, supplyValue, web3, network) => {
     // TODO: proper response handling
-    const response = await cEthInstance.methods.mint().send({from: account, value: supplyValue});
-    console.log(response);
+    cEthInstance.methods.mint().send({from: account, value: supplyValue})
+        .once('transactionHash', (hash) => {
+            dispatch(depositing());
+            console.log("transaction hash");
+        })
+        .on('confirmation', (number, receipt) => {
+            console.log(number, receipt);
+            dispatch(depositConfirmation(number));
+            if (number === 3) {
+                dispatch(finishedDepositing());
+                loadBalance(dispatch, web3, account, network);
+            }
+        })
+        .on('error', (error) => {
+            console.log(error);
+        });
 }
 
 export const topupWallet = async (dispatch, account) => {

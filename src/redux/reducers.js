@@ -38,6 +38,12 @@ function save(state = {}, action) {
             return { ...state, underlyingBalance: action.underlyingBalance}
         case 'SUPPLY_VALUE_SET':
             return { ...state, supplyValue: action.supplyValue}
+        case 'DEPOSITING_STARTED':
+            return { ...state, depositing: true}
+        case 'DEPOSITING_CONFIRMATION':
+            return { ...state, depositConfirmationNumber: action.number}
+        case 'DEPOSITING_FINISHED':
+            return { ...state, depositing: false}
         default:
             return state;
     }

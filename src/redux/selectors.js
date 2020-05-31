@@ -24,6 +24,9 @@ export const accountSelector = createSelector(account, w => w);
 const balance = state => get(state, 'account.balance', null);
 export const balanceSelector = createSelector(balance, w => w);
 
+const network = state => get(state, 'account.network', null);
+export const networkSelector = createSelector(network, w => w);
+
 
 //DISPLAY
 const page = state => get(state, 'display.page', "");
@@ -56,3 +59,10 @@ export const underlyingBalanceSelector = createSelector(underlyingBalance, w => 
 
 const supplyValue = state => get(state, 'save.supplyValue', 0);
 export const supplyValueSelector = createSelector(supplyValue, w => w);
+
+const depositing = state => get(state, 'save.depositing', false);
+export const depositingSelector = createSelector(depositing, w => w);
+
+//depositConfirmationNumber
+const depositConfirmationNumber = state => get(state, 'save.depositConfirmationNumber', 0);
+export const depositConfirmationNumberSelector = createSelector(depositConfirmationNumber, w => w);
