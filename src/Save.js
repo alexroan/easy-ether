@@ -21,8 +21,8 @@ class Save extends Component {
             dispatch(selectPage("Deposit"));
         }
 
-        let depositBtn = <Button onClick={deposit}>Deposit</Button>;
-        let withdrawBtn = <Button onClick={withdraw}>Withdraw</Button>;
+        let depositBtn = <Col className="text-center"><Button onClick={deposit}>Deposit</Button></Col>;
+        let withdrawBtn = <Col className="text-center"><Button onClick={withdraw}>Withdraw</Button></Col>;
 
         return (
             <FadeIn>
@@ -35,12 +35,8 @@ class Save extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="text-center">
-                            {balance > 0 ? depositBtn : <></>}
-                        </Col>
-                        <Col className="text-center">
-                            {cEthBalance > 0 ? withdrawBtn : <></>}
-                        </Col>
+                        {balance > 0 ? depositBtn : <></>}
+                        {cEthBalance > 0 ? withdrawBtn : <></>}
                     </Row>
                 </Container>
             </FadeIn>
