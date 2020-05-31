@@ -39,11 +39,19 @@ function save(state = {}, action) {
         case 'SUPPLY_VALUE_SET':
             return { ...state, supplyValue: action.supplyValue}
         case 'DEPOSITING_STARTED':
-            return { ...state, depositing: true}
+            return { ...state, depositing: true, depositConfirmationNumber: 0}
         case 'DEPOSITING_CONFIRMATION':
             return { ...state, depositConfirmationNumber: action.number}
         case 'DEPOSITING_FINISHED':
             return { ...state, depositing: false}
+        case 'REDEEM_VALUE_SET':
+            return { ...state, redeemValue: action.redeemValue}
+        case 'WITHDRAWING_STARTED':
+            return { ...state, withdrawing: true, withdrawConfirmationNumber: 0}
+        case 'WITHDRAWING_CONFIRMATION':
+            return { ...state, withdrawConfirmationNumber: action.number}
+        case 'WITHDRAWING_FINISHED':
+            return { ...state, withdrawing: false}
         default:
             return state;
     }

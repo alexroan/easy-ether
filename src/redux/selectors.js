@@ -63,6 +63,14 @@ export const supplyValueSelector = createSelector(supplyValue, w => w);
 const depositing = state => get(state, 'save.depositing', false);
 export const depositingSelector = createSelector(depositing, w => w);
 
-//depositConfirmationNumber
 const depositConfirmationNumber = state => get(state, 'save.depositConfirmationNumber', 0);
 export const depositConfirmationNumberSelector = createSelector(depositConfirmationNumber, w => w);
+
+const redeemValue = state => get(state, 'save.redeemValue', 0);
+export const redeemValueSelector = createSelector(redeemValue, w => w);
+
+const withdrawing = state => get(state, 'save.withdrawing', false);
+export const withdrawingSelector = createSelector(withdrawing, w => w);
+
+const withdrawConfirmationNumber = state => get(state, 'save.withdrawConfirmationNumber', 0);
+export const withdrawConfirmationNumberSelector = createSelector(withdrawConfirmationNumber, w => w);

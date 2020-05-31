@@ -121,6 +121,13 @@ export function setSupplyValue(supplyValue){
     }
 }
 
+export function setRedeemValue(redeemValue){
+    return {
+        type: 'REDEEM_VALUE_SET',
+        redeemValue
+    }
+}
+
 export function depositing(){
     return {
         type: 'DEPOSITING_STARTED',
@@ -137,5 +144,24 @@ export function depositConfirmation(number){
 export function finishedDepositing(){
     return {
         type: 'DEPOSITING_FINISHED',
+    }
+}
+
+export function withdrawing(){
+    return {
+        type: 'WITHDRAWING_STARTED',
+    }
+}
+
+export function withdrawConfirmation(number){
+    return {
+        type: 'WITHDRAWING_CONFIRMATION',
+        number
+    }
+}
+
+export function finishedWithdrawing(){
+    return {
+        type: 'WITHDRAWING_FINISHED',
     }
 }

@@ -1,4 +1,4 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance, depositing, finishedDepositing, depositConfirmation} from "./actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance, depositing, finishedDepositing, depositConfirmation, withdrawing, withdrawConfirmation, finishedWithdrawing} from "./actions";
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
@@ -75,23 +75,41 @@ export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
 }
 
 export const supplyEth = async (dispatch, cEthInstance, account, supplyValue, web3, network) => {
-    // TODO: proper response handling
     cEthInstance.methods.mint().send({from: account, value: supplyValue})
         .once('transactionHash', (hash) => {
             dispatch(depositing());
-            console.log("transaction hash");
         })
         .on('confirmation', (number, receipt) => {
-            console.log(number, receipt);
-            dispatch(depositConfirmation(number));
-            if (number === 3) {
-                dispatch(finishedDepositing());
-                loadBalance(dispatch, web3, account, network);
+            if (number < 4){
+                dispatch(depositConfirmation(number));
+                if (number === 3) {
+                    dispatch(finishedDepositing());
+                    loadBalance(dispatch, web3, account, network);
+                }
             }
         })
         .on('error', (error) => {
             console.log(error);
         });
+}
+
+export const redeemEth = async (dispatch, cEthInstance, account, redeemAmount, web3, network) => {
+    cEthInstance.methods.redeemUnderlying(redeemAmount).send({from: account})
+        .once('transactionHash', (hash) => {
+            dispatch(withdrawing());
+        })
+        .on('confirmation', (number, receipt) => {
+            if(number < 4){
+                dispatch(withdrawConfirmation(number));
+                if(number === 3) {
+                    dispatch(finishedWithdrawing());
+                    loadBalance(dispatch, web3, account, network);
+                }
+            }
+        })
+        .on('error', (error) => {
+            console.log(error);
+        })
 }
 
 export const topupWallet = async (dispatch, account) => {
