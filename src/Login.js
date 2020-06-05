@@ -3,18 +3,21 @@ import {connect} from 'react-redux';
 import {Container, Row, Col, Button, Alert} from 'react-bootstrap';
 import { loadWeb3 } from './redux/interactions';
 import FadeIn from 'react-fade-in';
-import { loggingInErrorSelector, loggingInSelector } from './redux/selectors';
+import { loggingInErrorSelector, loggingInSelector, loggedInSelector } from './redux/selectors';
 import { selectPage } from './redux/actions';
 
 class Login extends Component {
     
     render() {
 
-        const {dispatch, loggingIn, loggingInError} = this.props;
+        const {dispatch, loggingIn, loggingInError, loggedIn} = this.props;
     
         const login = async (e) => {
             e.preventDefault();
             await loadWeb3(dispatch);
+        }
+
+        if (loggedIn === true) {
             dispatch(selectPage("Account"));
         }
 
@@ -39,7 +42,8 @@ class Login extends Component {
 function mapStateToProps(state){
 	return {
         loggingInError: loggingInErrorSelector(state),
-        loggingIn: loggingInSelector(state)
+        loggingIn: loggingInSelector(state),
+        loggedIn: loggedInSelector(state)
 	}
 }
 

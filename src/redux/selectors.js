@@ -12,6 +12,9 @@ export const cEthInstanceSelector = createSelector(cEthInstance, w => w);
 const loggingIn = state => get(state, 'account.loggingIn', false);
 export const loggingInSelector = createSelector(loggingIn, w => w);
 
+const loggedIn = state => get(state, 'account.loggedIn', false);
+export const loggedInSelector = createSelector(loggedIn, w => w);
+
 const loggingInError = state => get(state, 'account.error', false);
 export const loggingInErrorSelector = createSelector(loggingInError, w => w);
 
