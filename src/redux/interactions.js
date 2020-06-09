@@ -9,8 +9,14 @@ export const loadWeb3 = async (dispatch) => {
     let web3 = null;
     try{
         web3 = await getWeb3();
-        dispatch(loggedIn(web3));
-        loadAccount(dispatch, web3);
+        loadAccount(dispatch, web3).then((account) => {
+            loadNetwork(dispatch, web3, account).then((network) => {
+                loadBalance(dispatch, web3, account, network);
+                dispatch(loggedIn(web3));
+            }).catch((error) => {
+                dispatch(loginFailed(error));
+            });
+        });
     }
     catch(error) {
         dispatch(loginFailed(error));
@@ -23,14 +29,13 @@ export const loadAccount = async (dispatch, web3) => {
     const account = accounts[0];
     dispatch(accountLoaded(account));
     subscribeToAccountsChanging(dispatch, web3);
-    loadNetwork(dispatch, web3, account);
     return account;
 }
 
 export const loadNetwork = async (dispatch, web3, account) => {
     const network = await web3.eth.net.getNetworkType();
+    if (!(network in addresses)) throw new Error("Network not supported");
     dispatch(setNetwork(network));
-    loadBalance(dispatch, web3, account, network);
     return network;
 }
   
