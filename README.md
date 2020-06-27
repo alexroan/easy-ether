@@ -6,7 +6,9 @@ Buy Ethereum and Earn Interest without Coinbase or complicated interface
 
 ## Details
 
-This application supports Torus, Portis, Authereum and Metamask wallets using [Web3Modal](https://github.com/Web3Modal/web3modal), then [Ramp Network](https://instant.ramp.network/) to enable you to buy crypto directly to that account.
+This application supports Torus, Portis, Authereum and Metamask wallets using [Web3Modal](https://github.com/Web3Modal/web3modal). 
+
+[Ramp Network](https://instant.ramp.network/) enables purchasing crypto directly to that connected account.
 
 You can also place your Ether in a savings account using [Compound Finance](https://compound.finance) liquidity pool, receiving the current variable interest rate on your Ether. You can withdraw your savings at any time.
 
