@@ -24,7 +24,7 @@ export const web3Selector = createSelector(web3, w => w);
 const account = state => get(state, 'account.account', "");
 export const accountSelector = createSelector(account, w => w);
 
-const balance = state => get(state, 'account.balance', null);
+const balance = state => get(state, 'account.balance', "");
 export const balanceSelector = createSelector(balance, w => w);
 
 const network = state => get(state, 'account.network', null);
