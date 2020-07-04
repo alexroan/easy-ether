@@ -3,6 +3,7 @@ import { subscribeToAccountsChanging } from "../subscriptions";
 import { getWeb3 } from "../../getWeb3";
 import {addresses} from "../../compound/cEth.js";
 import { loadCompoundEther } from "./compound";
+import { loadAaveAddressProvider } from "./aave";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
@@ -43,5 +44,6 @@ export const loadBalance = async (dispatch, web3, account, network) => {
     const balance = await web3.eth.getBalance(account);
     dispatch(balanceLoaded(balance));
     loadCompoundEther(dispatch, web3, account, network);
+    loadAaveAddressProvider(dispatch, web3, network);
     return balance;
 }

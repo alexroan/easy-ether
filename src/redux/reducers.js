@@ -57,6 +57,19 @@ function save(state = {}, action) {
     }
 }
 
+function aave(state = {}, action) {
+    switch (action.type) {
+        case 'AAVE_ADDRESS_PROVIDER_LOADED':
+            return { ...state, addressProvider: action.instance }
+        case 'AAVE_LENDING_POOL_ADDRESS_LOADED':
+            return { ...state, lendingPoolAddress: action.address}
+        case 'AAVE_LENDING_POOL_LOADED':
+            return { ...state, lendingPool: action.instance }
+        default:
+            return state;
+    }
+}
+
 function account(state = {}, action) {
     switch (action.type) {
         case 'LOGGING_IN':
@@ -86,7 +99,7 @@ function display(state = {}, action) {
 }
 
 const rootReducer = new combineReducers({
-    app, account, display, topup, save
+    app, account, aave, display, topup, save
 });
 
 export default rootReducer;
