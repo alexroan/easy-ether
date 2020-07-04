@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import Portis from "@portis/web3";
 import Torus from "@toruslabs/torus-embed";
 import Authereum from "authereum";
+import Fortmatic from "fortmatic";
 import Web3Modal from "web3modal";
 
 export const getWeb3 = async () => {
@@ -22,6 +23,12 @@ export const getWeb3 = async () => {
 				},
 				config: {
 				}
+			}
+		},
+		fortmatic: {
+			package: Fortmatic, // required
+			options: {
+				key: "pk_live_1FEDAA23B87A151D" // required
 			}
 		}
 	};

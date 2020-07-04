@@ -12,6 +12,7 @@
     "@toruslabs/torus-embed": "^1.5.4",
     "authereum": "0.0.4-beta.164",
     "bootstrap": "^4.4.1",
+    "fortmatic": "^2.0.6",
     "gh-pages": "^2.2.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
