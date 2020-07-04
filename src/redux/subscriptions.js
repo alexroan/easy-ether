@@ -1,4 +1,4 @@
-import { loadAccount } from "./interactions";
+import { loadAccount } from "./interactions/account";
 import {topupFail, topupClose, topupSuccess} from "./interactions/ramp";
 
 export const subscribeToRampEvents = (dispatch, ramp) => {

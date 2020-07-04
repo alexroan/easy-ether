@@ -1,8 +1,8 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, loginFailed, setNetwork} from "./actions";
-import { subscribeToAccountsChanging } from "./subscriptions";
-import { getWeb3 } from "../getWeb3";
-import {addresses} from "../compound/cEth.js";
-import { loadCompoundEther } from "./interactions/compound";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, loginFailed, setNetwork} from "../actions";
+import { subscribeToAccountsChanging } from "../subscriptions";
+import { getWeb3 } from "../../getWeb3";
+import {addresses} from "../../compound/cEth.js";
+import { loadCompoundEther } from "./compound";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());

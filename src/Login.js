@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, Alert} from 'react-bootstrap';
-import { loadWeb3 } from './redux/interactions';
+import { loadWeb3 } from './redux/interactions/account';
 import FadeIn from 'react-fade-in';
 import { loggingInErrorSelector, loggingInSelector, loggedInSelector } from './redux/selectors';
 import { selectPage } from './redux/actions';
