@@ -1,4 +1,4 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, loginFailed, setNetwork} from "../actions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, loginFailed, setNetwork} from "../actions/account";
 import { subscribeToAccountsChanging } from "../subscriptions";
 import { getWeb3 } from "../../getWeb3";
 import {addresses} from "../../compound/cEth.js";

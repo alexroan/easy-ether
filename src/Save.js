@@ -4,7 +4,7 @@ import {Container, Row, Col, Button} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 import { web3Selector, apySelector, cEthBalanceSelector, balanceSelector, underlyingBalanceSelector, accountSelector} from './redux/selectors';
 import { convertWeiToEth } from './helpers';
-import { selectPage } from './redux/actions';
+import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
 import { topupWallet } from './redux/interactions/ramp';
 

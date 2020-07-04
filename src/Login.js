@@ -4,7 +4,7 @@ import {Container, Row, Col, Button, Alert} from 'react-bootstrap';
 import { loadWeb3 } from './redux/interactions/account';
 import FadeIn from 'react-fade-in';
 import { loggingInErrorSelector, loggingInSelector, loggedInSelector } from './redux/selectors';
-import { selectPage } from './redux/actions';
+import { selectPage } from './redux/actions/display';
 
 class Login extends Component {
     

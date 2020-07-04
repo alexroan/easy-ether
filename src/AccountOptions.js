@@ -4,7 +4,7 @@ import {Container, Row, Col, Button} from 'react-bootstrap';
 import { accountSelector, topupOpenSelector, topupErrorSelector, topupSuccessSelector, topupResponseSelector, balanceSelector, web3Selector } from './redux/selectors';
 import { topupWallet } from './redux/interactions/ramp';
 import FadeIn from 'react-fade-in';
-import { selectPage } from './redux/actions';
+import { selectPage } from './redux/actions/display';
 import { convertWeiToEth } from './helpers';
 
 class AccountOptions extends Component {

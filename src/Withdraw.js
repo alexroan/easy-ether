@@ -5,7 +5,7 @@ import FadeIn from 'react-fade-in';
 import { BackButton } from './BackButton';
 import { underlyingBalanceSelector, web3Selector, withdrawingSelector, withdrawConfirmationNumberSelector, redeemValueSelector, cEthInstanceSelector, accountSelector, networkSelector } from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
-import {setRedeemValue} from './redux/actions';
+import {setRedeemValue} from './redux/actions/compound';
 import { FadeInSpinner } from './FadeInSpinner';
 import { redeemEth } from './redux/interactions/compound';
 

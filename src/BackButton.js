@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectPage } from "./redux/actions"
+import { selectPage } from "./redux/actions/display"
 import { Button } from 'react-bootstrap';
 
 export function BackButton(props) {

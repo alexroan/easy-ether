@@ -1,6 +1,6 @@
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
 import { subscribeToRampEvents } from "../subscriptions";
-import { rampOpened, rampSuccess, rampClosed, rampFailed, resetRamp } from '../actions';
+import { rampOpened, rampSuccess, rampClosed, rampFailed, resetRamp } from '../actions/ramp';
 
 
 export const topupWallet = async (dispatch, account) => {

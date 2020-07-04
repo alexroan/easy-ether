@@ -4,7 +4,7 @@ import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootst
 import FadeIn from 'react-fade-in';
 import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, networkSelector, depositingSelector, depositConfirmationNumberSelector} from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
-import { setSupplyValue } from './redux/actions';
+import { setSupplyValue } from './redux/actions/compound';
 import { BackButton } from './BackButton';
 import { FadeInSpinner } from './FadeInSpinner';
 import { supplyEth } from './redux/interactions/compound';
