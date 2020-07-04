@@ -1,5 +1,5 @@
-import {addressProviderABI, addressProviderAddresses, lendingPoolABI} from "../../aave/aave";
-import { addressProviderLoaded, lendingPoolAddressLoaded, lendingPoolLoaded } from "../actions/aave";
+import {addressProviderABI, addressProviderAddresses, lendingPoolABI, etherReserveAddress} from "../../aave/aave";
+import { addressProviderLoaded, lendingPoolAddressLoaded, lendingPoolLoaded, reserveDataLoaded } from "../actions/aave";
 
 export const loadAaveAddressProvider = async (dispatch, web3, network) => {
     const addressProviderAddress = addressProviderAddresses[network];
@@ -22,5 +22,16 @@ export const getLendingPoolAddress = async (dispatch, web3, addressProvider) => 
 export const loadLendingPool = async (dispatch, web3, address) => {
     const instance = new web3.eth.Contract(lendingPoolABI, address);
     dispatch(lendingPoolLoaded(instance));
+    getReserveData(dispatch, web3, instance);
     return instance;
+}
+
+//liquidityRate is the desired field
+export const getReserveData = async (dispatch, web3, lendingPool) => {
+    const data = await lendingPool.methods.getReserveData(etherReserveAddress).call()
+        .catch((e) => {
+            throw Error(`Error getting aave reserve data: ${e.message}`)
+        });
+    dispatch(reserveDataLoaded(data));
+    return data;
 }

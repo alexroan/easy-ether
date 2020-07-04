@@ -18,3 +18,10 @@ export function lendingPoolLoaded(instance) {
         instance
     }
 }
+
+export function reserveDataLoaded(data) {
+    return {
+        type: 'AAVE_LENDING_RESERVE_DATA_LOADED',
+        data
+    }
+}
