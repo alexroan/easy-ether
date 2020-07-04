@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import { accountSelector, topupOpenSelector, topupErrorSelector, topupSuccessSelector, topupResponseSelector, balanceSelector, web3Selector } from './redux/selectors';
-import { topupWallet } from './redux/interactions';
+import { topupWallet } from './redux/interactions/ramp';
 import FadeIn from 'react-fade-in';
 import { selectPage } from './redux/actions';
 import { convertWeiToEth } from './helpers';

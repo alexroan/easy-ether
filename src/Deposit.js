@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, networkSelector, depositingSelector, depositConfirmationNumberSelector} from './redux/selectors';
-import { supplyEth } from './redux/interactions';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { setSupplyValue } from './redux/actions';
 import { BackButton } from './BackButton';
 import { FadeInSpinner } from './FadeInSpinner';
+import { supplyEth } from './redux/interactions/compound';
 
 class Deposit extends Component {
     render() {

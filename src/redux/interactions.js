@@ -1,8 +1,8 @@
-import {loggedIn, accountLoaded, balanceLoaded, loggingIn, rampOpened, rampFailed, rampSuccess, rampClosed, resetRamp, loginFailed, cEthLoaded, setInterestRate, setCEthBalance, setNetwork, setUnderlyingBalance, depositing, finishedDepositing, depositConfirmation, withdrawing, withdrawConfirmation, finishedWithdrawing} from "./actions";
-import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
-import { subscribeToRampEvents, subscribeToAccountsChanging } from "./subscriptions";
+import {loggedIn, accountLoaded, balanceLoaded, loggingIn, loginFailed, setNetwork} from "./actions";
+import { subscribeToAccountsChanging } from "./subscriptions";
 import { getWeb3 } from "../getWeb3";
-import {cEthABI, addresses} from "../compound/cEth.js";
+import {addresses} from "../compound/cEth.js";
+import { loadCompoundEther } from "./interactions/compound";
 
 export const loadWeb3 = async (dispatch) => {
     dispatch(loggingIn());
@@ -44,106 +44,4 @@ export const loadBalance = async (dispatch, web3, account, network) => {
     dispatch(balanceLoaded(balance));
     loadCompoundEther(dispatch, web3, account, network);
     return balance;
-}
-
-export const loadCompoundEther = async (dispatch, web3, account, network) => {
-    const addr = addresses[network];
-    const cEthInstance = new web3.eth.Contract(cEthABI, addr);
-    dispatch(cEthLoaded(cEthInstance));
-    calculateInterestRate(dispatch, cEthInstance, account);
-    return cEthInstance;
-}
-
-export const calculateInterestRate = async (dispatch, cEthInstance, account) => {
-    const ethMantissa = 1e18;
-    const blocksPerDay = 4 * 60 * 24;
-    const daysPerYear = 365;
-    const supplyRatePerBlock = await cEthInstance.methods.supplyRatePerBlock().call(); //1000000000
-    const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
-    dispatch(setInterestRate(supplyApy));
-    retrieveUnderlyingBalance(dispatch, cEthInstance, account);
-    return supplyApy;
-}
-
-export const retrieveUnderlyingBalance = async (dispatch, cEthInstance, account) => {
-    const underlyingBalance = await cEthInstance.methods.balanceOfUnderlying(account).call();
-    dispatch(setUnderlyingBalance(underlyingBalance));
-    retrieveCEthBalance(dispatch, cEthInstance, account);
-    return underlyingBalance;
-}
-
-export const retrieveCEthBalance = async (dispatch, cEthInstance, account) => {
-    let cEthBalance = await cEthInstance.methods.balanceOf(account).call();
-    cEthBalance = (cEthBalance / 1e8);
-    dispatch(setCEthBalance(cEthBalance));
-    return cEthBalance;
-}
-
-export const supplyEth = async (dispatch, cEthInstance, account, supplyValue, web3, network) => {
-    cEthInstance.methods.mint().send({from: account, value: supplyValue})
-        .once('transactionHash', (hash) => {
-            dispatch(depositing());
-        })
-        .on('confirmation', (number, receipt) => {
-            if (number < 4){
-                dispatch(depositConfirmation(number+1));
-                if (number === 3) {
-                    dispatch(finishedDepositing());
-                    loadBalance(dispatch, web3, account, network);
-                }
-            }
-        })
-        .on('error', (error) => {
-            console.log(error);
-        });
-}
-
-export const redeemEth = async (dispatch, cEthInstance, account, redeemAmount, web3, network) => {
-    cEthInstance.methods.redeemUnderlying(redeemAmount).send({from: account})
-        .once('transactionHash', (hash) => {
-            dispatch(withdrawing());
-        })
-        .on('confirmation', (number, receipt) => {
-            if(number < 4){
-                dispatch(withdrawConfirmation(number+1));
-                if(number === 3) {
-                    dispatch(finishedWithdrawing());
-                    loadBalance(dispatch, web3, account, network);
-                }
-            }
-        })
-        .on('error', (error) => {
-            console.log(error);
-        })
-}
-
-export const topupWallet = async (dispatch, account) => {
-    const ramp = new RampInstantSDK({
-        hostAppName: 'Easy Ether',
-        hostLogoUrl: 'https://alexroan.github.io/easy-ether/static/media/logo-white.86143c9b.png',
-        variant: 'auto',
-        userAddress: account
-    })
-    .show();
-    dispatch(rampOpened());
-    subscribeToRampEvents(dispatch, ramp);
-}
-
-export const topupSuccess = async (dispatch, response) => {
-    console.log("Topup success", response);
-    dispatch(rampSuccess(response));
-}
-
-export const topupClose = async (dispatch, response) => {
-    console.log("Topup closed", response);
-    dispatch(rampClosed(response));
-}
-
-export const topupFail = async (dispatch, response) => {
-    console.log("Topup fail", response);
-    dispatch(rampFailed(response));
-}
-
-export const resetTopup = async (dispatch) => {
-    dispatch(resetRamp());
 }

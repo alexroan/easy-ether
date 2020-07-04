@@ -1,4 +1,5 @@
-import { topupFail, topupClose, topupSuccess, loadAccount } from "./interactions";
+import { loadAccount } from "./interactions";
+import {topupFail, topupClose, topupSuccess} from "./interactions/ramp";
 
 export const subscribeToRampEvents = (dispatch, ramp) => {
     ramp.on('WIDGET_CLOSE_REQUEST_CONFIRMED', (event) => {

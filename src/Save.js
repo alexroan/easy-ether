@@ -6,7 +6,7 @@ import { web3Selector, apySelector, cEthBalanceSelector, balanceSelector, underl
 import { convertWeiToEth } from './helpers';
 import { selectPage } from './redux/actions';
 import { BackButton } from './BackButton';
-import { topupWallet } from './redux/interactions';
+import { topupWallet } from './redux/interactions/ramp';
 
 class Save extends Component {
     render() {

@@ -7,7 +7,7 @@ import { underlyingBalanceSelector, web3Selector, withdrawingSelector, withdrawC
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import {setRedeemValue} from './redux/actions';
 import { FadeInSpinner } from './FadeInSpinner';
-import { redeemEth } from './redux/interactions';
+import { redeemEth } from './redux/interactions/compound';
 
 class Withdraw extends Component{
     render() {
