@@ -67,6 +67,12 @@ function aave(state = {}, action) {
             return { ...state, lendingPool: action.instance }
         case 'AAVE_LENDING_RESERVE_DATA_LOADED':
             return { ...state, reserveData: action.data}
+        case 'AAVE_APY_LOADED':
+            return { ...state, apy: action.apy}
+        case 'AAVE_LENDING_USER_DATA_LOADED':
+            return { ...state, userData: action.data}
+        case 'AAVE_TOTAL_LIQUIDITY_LOADED':
+            return { ...state, userLiquidity: action.liquidity}
         default:
             return state;
     }

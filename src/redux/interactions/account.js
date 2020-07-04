@@ -44,6 +44,6 @@ export const loadBalance = async (dispatch, web3, account, network) => {
     const balance = await web3.eth.getBalance(account);
     dispatch(balanceLoaded(balance));
     loadCompoundEther(dispatch, web3, account, network);
-    loadAaveAddressProvider(dispatch, web3, network);
+    loadAaveAddressProvider(dispatch, web3, network, account);
     return balance;
 }

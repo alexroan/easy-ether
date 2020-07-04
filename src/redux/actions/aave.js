@@ -25,3 +25,24 @@ export function reserveDataLoaded(data) {
         data
     }
 }
+
+export function aPYLoaded(apy) {
+    return {
+        type: 'AAVE_APY_LOADED',
+        apy
+    }
+}
+
+export function userDataLoaded(data) {
+    return {
+        type: 'AAVE_LENDING_USER_DATA_LOADED',
+        data
+    }
+}
+
+export function totalLiquidityLoaded(liquidity) {
+    return {
+        type: 'AAVE_TOTAL_LIQUIDITY_LOADED',
+        liquidity
+    }
+}

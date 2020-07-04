@@ -49,6 +49,15 @@ export const topupSuccessSelector = createSelector(topupSuccess, w => w);
 const topupResponse = state => get(state, 'topup.response', null);
 export const topupResponseSelector = createSelector(topupResponse, w => w);
 
+//AAVE
+const aaveLendingPool = state => get(state, 'aave.lendingPool', null);
+export const aaveLendingPoolSelector = createSelector(aaveLendingPool, w => w);
+
+const aaveAPY = state => get(state, 'aave.apy', 0);
+export const aaveAPYSelector = createSelector(aaveAPY, w => w);
+
+const aaveUserLiquidity = state => get(state, 'aave.userLiquidity', 0);
+export const aaveUserLiquiditySelector = createSelector(aaveUserLiquidity, w => w);
 
 //SAVE
 const apy = state => get(state, 'save.apy', "");
