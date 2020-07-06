@@ -4,7 +4,7 @@ function app(state = {}, action) {
     switch (action.type) {
         case 'RAMP_LOADED':
             return { ...state, ramp: action.ramp }
-        case 'CETH_LOADED':
+        case 'COMP_CETH_LOADED':
             return { ...state, cEthInstance: action.cEthInstance}
         default:
             return state;
@@ -28,29 +28,29 @@ function topup(state = {}, action) {
     }
 }
 
-function save(state = {}, action) {
+function compound(state = {}, action) {
     switch(action.type) {
-        case 'INTEREST_RATE_SET':
+        case 'COMP_INTEREST_RATE_SET':
             return { ...state, apy: action.apy}
-        case 'CETH_BALANCE_SET':
+        case 'COMP_CETH_BALANCE_SET':
             return { ...state, cEthBalance: action.balance}
-        case 'UNDERLYING_BALANCE_SET':
+        case 'COMP_UNDERLYING_BALANCE_SET':
             return { ...state, underlyingBalance: action.underlyingBalance}
-        case 'SUPPLY_VALUE_SET':
+        case 'COMP_SUPPLY_VALUE_SET':
             return { ...state, supplyValue: action.supplyValue}
-        case 'DEPOSITING_STARTED':
+        case 'COMP_DEPOSITING_STARTED':
             return { ...state, depositing: true, depositConfirmationNumber: 0}
-        case 'DEPOSITING_CONFIRMATION':
+        case 'COMP_DEPOSITING_CONFIRMATION':
             return { ...state, depositConfirmationNumber: action.number}
-        case 'DEPOSITING_FINISHED':
+        case 'COMP_DEPOSITING_FINISHED':
             return { ...state, depositing: false}
-        case 'REDEEM_VALUE_SET':
+        case 'COMP_REDEEM_VALUE_SET':
             return { ...state, redeemValue: action.redeemValue}
-        case 'WITHDRAWING_STARTED':
+        case 'COMP_WITHDRAWING_STARTED':
             return { ...state, withdrawing: true, withdrawConfirmationNumber: 0}
-        case 'WITHDRAWING_CONFIRMATION':
+        case 'COMP_WITHDRAWING_CONFIRMATION':
             return { ...state, withdrawConfirmationNumber: action.number}
-        case 'WITHDRAWING_FINISHED':
+        case 'COMP_WITHDRAWING_FINISHED':
             return { ...state, withdrawing: false}
         default:
             return state;
@@ -107,7 +107,7 @@ function display(state = {}, action) {
 }
 
 const rootReducer = new combineReducers({
-    app, account, aave, display, topup, save
+    app, account, aave, display, topup, compound
 });
 
 export default rootReducer;
