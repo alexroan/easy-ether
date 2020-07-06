@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, Table} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, compoundAPYSelector, balanceSelector, compoundUnderlyingBalanceSelector, accountSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, balanceSelector, compoundUnderlyingBalanceSelector, accountSelector, aaveAPYSelector, aaveUserLiquiditySelector} from './redux/selectors';
 import { convertWeiToEth } from './helpers';
 import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
@@ -12,9 +12,10 @@ import { topupWallet } from './redux/interactions/ramp';
 
 class Save extends Component {
     render() {
-        const {dispatch, compoundAPY, balance, web3, compoundUnderlyingBalance, account} = this.props;
+        const {dispatch, compoundAPY, balance, web3, compoundUnderlyingBalance, account, aaveAPY, aaveUnderlyingBalance} = this.props;
 
         const ethCompoundUnderlyingBalance = convertWeiToEth(web3, compoundUnderlyingBalance);
+        const ethAaveUnderlyingBalance = convertWeiToEth(web3, aaveUnderlyingBalance);
 
         const withdraw = (protocol) => {
             dispatch(selectPage("Withdraw", protocol));
@@ -46,8 +47,7 @@ class Save extends Component {
                                         <th>Pool</th>
                                         <th>APY</th>
                                         <th>Balance</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th colSpan="2">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,10 +60,10 @@ class Save extends Component {
                                     </tr>
                                     <tr>
                                         <td>AAVE</td>
-                                        <td>0.75%</td>
-                                        <td><strong>2.50 ETH</strong></td>
-                                        <td><Button size="sm">Deposit</Button></td>
-                                        <td><Button size="sm">Withdraw</Button></td>
+                                        <td>{parseFloat(aaveAPY).toFixed(2)}%</td>
+                                        <td><strong>{parseFloat(ethAaveUnderlyingBalance).toFixed(2)} ETH</strong></td>
+                                        <td>{actionButton(() => deposit("aave"), "Deposit")}</td>
+                                        <td>{actionButton(() => withdraw("aave"), "Withdraw")}</td>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -82,6 +82,8 @@ function mapStateToProps(state){
         account: accountSelector(state),
         compoundAPY: compoundAPYSelector(state),
         compoundUnderlyingBalance: compoundUnderlyingBalanceSelector(state),
+        aaveAPY: aaveAPYSelector(state),
+        aaveUnderlyingBalance: aaveUserLiquiditySelector(state)
 	}
 }
 

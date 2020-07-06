@@ -1,6 +1,8 @@
 import {cEthABI, addresses} from "../../compound/cEth.js";
-import { cEthLoaded, setInterestRate, setUnderlyingBalance, setCEthBalance, depositing, depositConfirmation, finishedDepositing, withdrawing, withdrawConfirmation, finishedWithdrawing } from "../actions/compound";
+import { cEthLoaded, setInterestRate, setUnderlyingBalance, setCEthBalance } from "../actions/compound";
 import { loadBalance } from "./account";
+import { depositing, depositConfirmation, finishedDepositing } from "../actions/deposit.js";
+import { withdrawing, withdrawConfirmation, finishedWithdrawing } from "../actions/withdraw.js";
 
 export const loadCompoundEther = async (dispatch, web3, account, network) => {
     const addr = addresses[network];

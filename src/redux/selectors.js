@@ -72,20 +72,23 @@ export const compoundEthBalanceSelector = createSelector(compoundEthBalance, w =
 const compoundUnderlyingBalance = state => get(state, 'compound.underlyingBalance', 0);
 export const compoundUnderlyingBalanceSelector = createSelector(compoundUnderlyingBalance, w => w);
 
-const compoundSupplyValue = state => get(state, 'compound.supplyValue', 0);
-export const compoundSupplyValueSelector = createSelector(compoundSupplyValue, w => w);
 
-const compoundDepositing = state => get(state, 'compound.depositing', false);
-export const compoundDepositingSelector = createSelector(compoundDepositing, w => w);
+//WITHDRAW
+const redeemValue = state => get(state, 'withdraw.redeemValue', 0);
+export const redeemValueSelector = createSelector(redeemValue, w => w);
 
-const compoundDepositConfirmationNumber = state => get(state, 'compound.depositConfirmationNumber', 0);
-export const compoundDepositConfirmationNumberSelector = createSelector(compoundDepositConfirmationNumber, w => w);
+const withdrawing = state => get(state, 'withdraw.withdrawing', false);
+export const withdrawingSelector = createSelector(withdrawing, w => w);
 
-const compoundRedeemValue = state => get(state, 'compound.redeemValue', 0);
-export const compoundRedeemValueSelector = createSelector(compoundRedeemValue, w => w);
+const withdrawConfirmationNumber = state => get(state, 'withdraw.withdrawConfirmationNumber', 0);
+export const withdrawConfirmationNumberSelector = createSelector(withdrawConfirmationNumber, w => w);
 
-const compoundWithdrawing = state => get(state, 'compound.withdrawing', false);
-export const compoundWithdrawingSelector = createSelector(compoundWithdrawing, w => w);
+//DEPOSIT
+const supplyValue = state => get(state, 'deposit.supplyValue', 0);
+export const supplyValueSelector = createSelector(supplyValue, w => w);
 
-const compoundWithdrawConfirmationNumber = state => get(state, 'compound.withdrawConfirmationNumber', 0);
-export const compoundWithdrawConfirmationNumberSelector = createSelector(compoundWithdrawConfirmationNumber, w => w);
+const depositing = state => get(state, 'deposit.depositing', false);
+export const depositingSelector = createSelector(depositing, w => w);
+
+const depositConfirmationNumber = state => get(state, 'deposit.depositConfirmationNumber', 0);
+export const depositConfirmationNumberSelector = createSelector(depositConfirmationNumber, w => w);

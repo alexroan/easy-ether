@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, compoundAPYSelector, compoundEthInstanceSelector, accountSelector, balanceSelector, compoundSupplyValueSelector, networkSelector, compoundDepositingSelector, compoundDepositConfirmationNumberSelector, pageParameterSelector, aaveAPYSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, compoundEthInstanceSelector, accountSelector, balanceSelector, networkSelector, pageParameterSelector, aaveAPYSelector, supplyValueSelector, depositingSelector, depositConfirmationNumberSelector} from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
-import { setSupplyValue } from './redux/actions/compound';
 import { BackButton } from './BackButton';
 import { FadeInSpinner } from './FadeInSpinner';
 import { supplyEth } from './redux/interactions/compound';
+import { setSupplyValue } from './redux/actions/deposit';
 
 class Deposit extends Component {
     render() {
@@ -23,6 +23,7 @@ class Deposit extends Component {
                 case 'compound':
                     supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
                     break;
+                //TODO AAVE
                 default:
                     break;
             }
@@ -76,11 +77,11 @@ function mapStateToProps(state){
         account: accountSelector(state),
         balance: balanceSelector(state),
         network: networkSelector(state),
-        supplyValue: compoundSupplyValueSelector(state),
+        supplyValue: supplyValueSelector(state),
         apy: apy,
         cEthInstance: compoundEthInstanceSelector(state),
-        depositing: compoundDepositingSelector(state),
-        confirmationNumber: compoundDepositConfirmationNumberSelector(state)
+        depositing: depositingSelector(state),
+        confirmationNumber: depositConfirmationNumberSelector(state)
 	}
 }
 

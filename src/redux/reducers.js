@@ -28,6 +28,36 @@ function topup(state = {}, action) {
     }
 }
 
+function deposit(state = {}, action) {
+    switch (action.type) {
+        case 'SUPPLY_VALUE_SET':
+            return { ...state, supplyValue: action.supplyValue}
+        case 'DEPOSITING_STARTED':
+            return { ...state, depositing: true, depositConfirmationNumber: 0}
+        case 'DEPOSITING_CONFIRMATION':
+            return { ...state, depositConfirmationNumber: action.number}
+        case 'DEPOSITING_FINISHED':
+            return { ...state, depositing: false}
+        default:
+            return state;
+    }
+}
+
+function withdraw(state = {}, action) {
+    switch (action.type) {
+        case 'REDEEM_VALUE_SET':
+            return { ...state, redeemValue: action.redeemValue}
+        case 'WITHDRAWING_STARTED':
+            return { ...state, withdrawing: true, withdrawConfirmationNumber: 0}
+        case 'WITHDRAWING_CONFIRMATION':
+            return { ...state, withdrawConfirmationNumber: action.number}
+        case 'WITHDRAWING_FINISHED':
+            return { ...state, withdrawing: false}
+        default:
+            return state;
+    }
+}
+
 function compound(state = {}, action) {
     switch(action.type) {
         case 'COMP_INTEREST_RATE_SET':
@@ -36,22 +66,6 @@ function compound(state = {}, action) {
             return { ...state, cEthBalance: action.balance}
         case 'COMP_UNDERLYING_BALANCE_SET':
             return { ...state, underlyingBalance: action.underlyingBalance}
-        case 'COMP_SUPPLY_VALUE_SET':
-            return { ...state, supplyValue: action.supplyValue}
-        case 'COMP_DEPOSITING_STARTED':
-            return { ...state, depositing: true, depositConfirmationNumber: 0}
-        case 'COMP_DEPOSITING_CONFIRMATION':
-            return { ...state, depositConfirmationNumber: action.number}
-        case 'COMP_DEPOSITING_FINISHED':
-            return { ...state, depositing: false}
-        case 'COMP_REDEEM_VALUE_SET':
-            return { ...state, redeemValue: action.redeemValue}
-        case 'COMP_WITHDRAWING_STARTED':
-            return { ...state, withdrawing: true, withdrawConfirmationNumber: 0}
-        case 'COMP_WITHDRAWING_CONFIRMATION':
-            return { ...state, withdrawConfirmationNumber: action.number}
-        case 'COMP_WITHDRAWING_FINISHED':
-            return { ...state, withdrawing: false}
         default:
             return state;
     }
@@ -107,7 +121,7 @@ function display(state = {}, action) {
 }
 
 const rootReducer = new combineReducers({
-    app, account, aave, display, topup, compound
+    app, account, aave, display, topup, compound, deposit, withdraw
 });
 
 export default rootReducer;
