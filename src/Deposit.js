@@ -2,17 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, compoundAPYSelector, compoundEthInstanceSelector, accountSelector, balanceSelector, networkSelector, pageParameterSelector, aaveAPYSelector, supplyValueSelector, depositingSelector, depositConfirmationNumberSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, compoundEthInstanceSelector, accountSelector, balanceSelector, networkSelector, pageParameterSelector, aaveAPYSelector, supplyValueSelector, depositingSelector, depositConfirmationNumberSelector, aaveLendingPoolSelector} from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { BackButton } from './BackButton';
 import { FadeInSpinner } from './FadeInSpinner';
 import { supplyEth } from './redux/interactions/compound';
 import { setSupplyValue } from './redux/actions/deposit';
+import { depositEth } from './redux/interactions/aave';
 
 class Deposit extends Component {
     render() {
         const {dispatch, apy, cEthInstance, account, balance, web3, supplyValue, network,
-            depositing, confirmationNumber, pageParameter} = this.props;
+            depositing, confirmationNumber, pageParameter, aaveLendingPool} = this.props;
         const weiSupplyValue = convertEthToWei(web3, supplyValue);
         const ethBalance = convertWeiToEth(web3, balance);
 
@@ -23,7 +24,9 @@ class Deposit extends Component {
                 case 'compound':
                     supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
                     break;
-                //TODO AAVE
+                case 'aave':
+                    depositEth(dispatch, web3, aaveLendingPool, account, weiSupplyValue, network);
+                    break;
                 default:
                     break;
             }
@@ -80,6 +83,7 @@ function mapStateToProps(state){
         supplyValue: supplyValueSelector(state),
         apy: apy,
         cEthInstance: compoundEthInstanceSelector(state),
+        aaveLendingPool: aaveLendingPoolSelector(state),
         depositing: depositingSelector(state),
         confirmationNumber: depositConfirmationNumberSelector(state)
 	}

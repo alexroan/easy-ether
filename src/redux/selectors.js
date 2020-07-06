@@ -62,6 +62,10 @@ export const aaveAPYSelector = createSelector(aaveAPY, w => w);
 const aaveUserLiquidity = state => get(state, 'aave.userLiquidity', 0);
 export const aaveUserLiquiditySelector = createSelector(aaveUserLiquidity, w => w);
 
+const aaveEthAToken = state => get(state, 'aave.ethAToken', null);
+export const aaveEthATokenSelector = createSelector(aaveEthAToken, w => w);
+
+
 //COMPOUND
 const compoundAPY = state => get(state, 'compound.apy', "");
 export const compoundAPYSelector = createSelector(compoundAPY, w => w);

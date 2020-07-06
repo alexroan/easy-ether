@@ -33,6 +33,20 @@ export function aPYLoaded(apy) {
     }
 }
 
+export function ethATokenAddressLoaded(address) {
+    return {
+        type: 'AAVE_ETH_ATOKEN_ADDRESS_LOADED',
+        address
+    }
+}
+
+export function ethATokenLoaded(instance) {
+    return {
+        type: 'AAVE_ETH_ATOKEN_LOADED',
+        instance
+    }
+}
+
 export function userDataLoaded(data) {
     return {
         type: 'AAVE_LENDING_USER_DATA_LOADED',

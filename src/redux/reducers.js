@@ -83,6 +83,10 @@ function aave(state = {}, action) {
             return { ...state, reserveData: action.data}
         case 'AAVE_APY_LOADED':
             return { ...state, apy: action.apy}
+        case 'AAVE_ETH_ATOKEN_ADDRESS_LOADED':
+            return { ...state, ethATokenAddress: action.address}
+        case 'AAVE_ETH_ATOKEN_LOADED':
+            return { ...state, ethAToken: action.instance}
         case 'AAVE_LENDING_USER_DATA_LOADED':
             return { ...state, userData: action.data}
         case 'AAVE_TOTAL_LIQUIDITY_LOADED':

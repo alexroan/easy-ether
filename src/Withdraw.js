@@ -3,16 +3,18 @@ import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 import { BackButton } from './BackButton';
-import { compoundUnderlyingBalanceSelector, web3Selector, compoundEthInstanceSelector, accountSelector, networkSelector, withdrawingSelector, withdrawConfirmationNumberSelector, redeemValueSelector, pageParameterSelector, aaveUserLiquiditySelector } from './redux/selectors';
+import { compoundUnderlyingBalanceSelector, web3Selector, compoundEthInstanceSelector, accountSelector, networkSelector, withdrawingSelector, withdrawConfirmationNumberSelector, redeemValueSelector, pageParameterSelector, aaveUserLiquiditySelector, aaveEthATokenSelector } from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { FadeInSpinner } from './FadeInSpinner';
 import { redeemEth } from './redux/interactions/compound';
 import { setRedeemValue } from './redux/actions/withdraw';
+import { withdrawEth } from './redux/interactions/aave';
 
 class Withdraw extends Component{
     render() {
 
-        const {dispatch, web3, underlyingBalance, withdrawing, confirmationNumber, redeemValue, compoundEthInstance, account, network, pageParameter} = this.props;
+        const {dispatch, web3, underlyingBalance, withdrawing, confirmationNumber, redeemValue, 
+            compoundEthInstance, account, network, pageParameter, aaveEthAToken} = this.props;
         const weiRedeemValue = convertEthToWei(web3, redeemValue);
         const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
 
@@ -23,7 +25,9 @@ class Withdraw extends Component{
                 case 'compound':
                     redeemEth(dispatch, compoundEthInstance, account, weiRedeemValue, web3, network);
                     break;
-                //TODO AAVE
+                case 'aave':
+                    withdrawEth(dispatch, web3, aaveEthAToken, account, weiRedeemValue, network);
+                    break;
                 default:
                     break;
             }
@@ -78,6 +82,7 @@ function mapStateToProps(state){
         confirmationNumber: withdrawConfirmationNumberSelector(state),
         redeemValue: redeemValueSelector(state),
         compoundEthInstance: compoundEthInstanceSelector(state),
+        aaveEthAToken: aaveEthATokenSelector(state),
         account: accountSelector(state),
         network: networkSelector(state),
         pageParameter: pageParameter

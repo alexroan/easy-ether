@@ -1,5 +1,8 @@
-import {addressProviderABI, addressProviderAddresses, lendingPoolABI, etherReserveAddress} from "../../aave/aave";
-import { addressProviderLoaded, lendingPoolAddressLoaded, lendingPoolLoaded, reserveDataLoaded , aPYLoaded, totalLiquidityLoaded, userDataLoaded} from "../actions/aave";
+import {addressProviderABI, addressProviderAddresses, lendingPoolABI, etherReserveAddress, aTokenABI} from "../../aave/aave";
+import { addressProviderLoaded, lendingPoolAddressLoaded, lendingPoolLoaded, reserveDataLoaded , aPYLoaded, totalLiquidityLoaded, userDataLoaded, ethATokenAddressLoaded, ethATokenLoaded} from "../actions/aave";
+import { depositing, depositConfirmation, finishedDepositing } from "../actions/deposit";
+import { loadBalance } from "./account";
+import { withdrawing, withdrawConfirmation, finishedWithdrawing } from "../actions/withdraw";
 
 export const loadAaveAddressProvider = async (dispatch, web3, network, account) => {
     const addressProviderAddress = addressProviderAddresses[network];
@@ -49,12 +52,65 @@ export const getReserveData = async (dispatch, web3, lendingPool) => {
             throw Error(`Error getting aave reserve data: ${e.message}`)
         });
     dispatch(reserveDataLoaded(data));
-    loadAPY(dispatch, web3, data);
+    loadAPY(dispatch, data);
+    loadEthATokenAddress(dispatch, web3, data);
     return data;
 }
 
-export const loadAPY = async (dispatch, web3, data) => {
+export const loadEthATokenAddress = async (dispatch, web3, data) => {
+    const aTokenAddress = data.aTokenAddress;
+    dispatch(ethATokenAddressLoaded(aTokenAddress));
+    loadEthAToken(dispatch, web3, aTokenAddress);
+    return aTokenAddress;
+}
+
+export const loadEthAToken = async (dispatch, web3, ethATokenAddress) => {
+    const instance = new web3.eth.Contract(aTokenABI, ethATokenAddress);
+    dispatch(ethATokenLoaded(instance));
+    return instance;
+}
+
+export const loadAPY = async (dispatch, data) => {
     const apy = (data.liquidityRate / 10000000000000000000000000);
     dispatch(aPYLoaded(apy));
     return apy;
+}
+
+export const depositEth = async (dispatch, web3, lendingPool, account, supplyValue, network) => {
+    // Using referralcode = 0 for now. Wait for application to return
+    lendingPool.methods.deposit(etherReserveAddress, supplyValue, 0).send({from: account, value: supplyValue})
+        .once('transactionHash', (hash) => {
+            dispatch(depositing());
+        })
+        .on('confirmation', (number, receipt) => {
+            if (number < 4){
+                dispatch(depositConfirmation(number+1));
+                if (number === 3) {
+                    dispatch(finishedDepositing());
+                    loadBalance(dispatch, web3, account, network);
+                }
+            }
+        })
+        .on('error', (error) => {
+            console.log(error);
+        });
+}
+
+export const withdrawEth = async (dispatch, web3, ethAToken, account, withdrawAmount, network) => {
+    ethAToken.methods.redeem(withdrawAmount).send({from: account})
+        .once('transactionHash', (hash) => {
+            dispatch(withdrawing());
+        })
+        .on('confirmation', (number, receipt) => {
+            if (number < 4){
+                dispatch(withdrawConfirmation(number+1));
+                if (number === 3) {
+                    dispatch(finishedWithdrawing());
+                    loadBalance(dispatch, web3, account, network);
+                }
+            }
+        })
+        .on('error', (error) => {
+            console.log(error);
+        });
 }
