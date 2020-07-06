@@ -100,7 +100,7 @@ function account(state = {}, action) {
 function display(state = {}, action) {
     switch (action.type) {
         case 'PAGE_SELECTED':
-            return { ...state, page: action.page }
+            return { ...state, page: action.page, parameter: action.parameter }
         default:
             return state;
     }

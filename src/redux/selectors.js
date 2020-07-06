@@ -35,6 +35,9 @@ export const networkSelector = createSelector(network, w => w);
 const page = state => get(state, 'display.page', "");
 export const pageSelector = createSelector(page, w => w);
 
+const parameter = state => get(state, 'display.parameter', "");
+export const pageParameterSelector = createSelector(parameter, w => w);
+
 
 //TOPUP
 const topupOpen = state => get(state, 'topup.active', false);

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, networkSelector, depositingSelector, depositConfirmationNumberSelector} from './redux/selectors';
+import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, networkSelector, depositingSelector, depositConfirmationNumberSelector, pageParameterSelector, aaveAPYSelector} from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { setSupplyValue } from './redux/actions/compound';
 import { BackButton } from './BackButton';
@@ -11,13 +11,15 @@ import { supplyEth } from './redux/interactions/compound';
 
 class Deposit extends Component {
     render() {
-        const {dispatch, apy, cEthInstance, account, balance, web3, supplyValue, network, depositing, confirmationNumber} = this.props;
+        const {dispatch, apy, cEthInstance, account, balance, web3, supplyValue, network,
+            depositing, confirmationNumber, pageParameter} = this.props;
         const weiSupplyValue = convertEthToWei(web3, supplyValue);
         const ethBalance = convertWeiToEth(web3, balance);
 
         const changeSaveValue = (e) => dispatch(setSupplyValue(e.target.value));
 
         const save = () => {
+
             supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
         }
 
@@ -50,13 +52,27 @@ class Deposit extends Component {
 }
 
 function mapStateToProps(state){
+    const pageParameter = pageParameterSelector(state);
+    let apy = null;
+    switch (pageParameter) {
+        case 'compound':
+            apy = apySelector(state);
+            break;
+        case 'aave':
+            apy = aaveAPYSelector(state);
+            break;
+        default:
+            break;
+    }
+
 	return {
+        pageParameter: pageParameterSelector(state),
         web3: web3Selector(state),
         account: accountSelector(state),
         balance: balanceSelector(state),
         network: networkSelector(state),
         supplyValue: supplyValueSelector(state),
-        apy: apySelector(state),
+        apy: apy,
         cEthInstance: cEthInstanceSelector(state),
         depositing: depositingSelector(state),
         confirmationNumber: depositConfirmationNumberSelector(state)

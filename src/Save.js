@@ -8,26 +8,31 @@ import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
 import { topupWallet } from './redux/interactions/ramp';
 
+
+
 class Save extends Component {
     render() {
         const {dispatch, apy, cEthBalance, balance, web3, underlyingBalance, account} = this.props;
 
         const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
 
-        const withdraw = () => {
-            dispatch(selectPage("Withdraw"));
+        const withdraw = (protocol) => {
+            dispatch(selectPage("Withdraw", protocol));
         }
 
-        const deposit = () => {
-            dispatch(selectPage("Deposit"));
+        const deposit = (protocol) => {
+            dispatch(selectPage("Deposit", protocol));
         }
 
         const topup = () => {
             topupWallet(dispatch, account);
         }
 
-        let depositBtn = <Col className="text-center"><Button onClick={deposit}>Deposit</Button></Col>;
-        let withdrawBtn = <Col className="text-center"><Button onClick={withdraw}>Withdraw</Button></Col>;
+        const actionButton = (clickAction, text) => {
+            return (<Button size="sm" onClick={clickAction}>
+                {text}
+            </Button>);
+        }
 
         return (
             <FadeIn>
@@ -41,7 +46,6 @@ class Save extends Component {
                                         <th>Pool</th>
                                         <th>APY</th>
                                         <th>Balance</th>
-                                        <th>Earned</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -49,17 +53,15 @@ class Save extends Component {
                                 <tbody>
                                     <tr>
                                         <td>Compound</td>
-                                        <td>0.50%</td>
-                                        <td><strong>0.75 ETH</strong></td>
-                                        <td>0.05 ETH</td>
-                                        <td><Button size="sm">Deposit</Button></td>
-                                        <td><Button size="sm">Withdraw</Button></td>
+                                        <td>{parseFloat(apy).toFixed(2)}%</td>
+                                        <td><strong>{parseFloat(ethUnderlyingBalance).toFixed(2)} ETH</strong></td>
+                                        <td>{actionButton(() => deposit("compound"), "Deposit")}</td>
+                                        <td>{actionButton(() => withdraw("compound"), "Withdraw")}</td>
                                     </tr>
                                     <tr>
                                         <td>AAVE</td>
                                         <td>0.75%</td>
                                         <td><strong>2.50 ETH</strong></td>
-                                        <td>0.50 ETH</td>
                                         <td><Button size="sm">Deposit</Button></td>
                                         <td><Button size="sm">Withdraw</Button></td>
                                     </tr>
