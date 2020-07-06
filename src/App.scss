@@ -81,6 +81,18 @@ html {
                     }
                 }
 
+                .table{
+                    thead{
+                        th {
+                            border-bottom-width: 1px;
+                            border-top: 0;
+                        }
+                    }
+                    td {
+                        border-top: 0;
+                    }
+                }
+
                 footer{
                     position: absolute;
                     bottom: 0;

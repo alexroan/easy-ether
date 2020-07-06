@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Container, Row, Col, Button, Table} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 import { web3Selector, apySelector, cEthBalanceSelector, balanceSelector, underlyingBalanceSelector, accountSelector} from './redux/selectors';
 import { convertWeiToEth } from './helpers';
@@ -35,14 +35,37 @@ class Save extends Component {
                     <Row>
                         <Col className="text-center">
                             <BackButton dispatch={dispatch} pageName="Account" />
-                            {balance <= 0 && cEthBalance <= 0 ? <p><Button size="sm" onClick={topup}>Topup</Button> to start saving</p> : <></>}
-                            <p>Savings: {parseFloat(ethUnderlyingBalance).toFixed(5)}~ ETH</p>
-                            <p>Current Interest: {parseFloat(apy).toFixed(2)}% APY</p>
+                            <Table>
+                                <thead>
+                                    <tr>
+                                        <th>Pool</th>
+                                        <th>APY</th>
+                                        <th>Balance</th>
+                                        <th>Earned</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Compound</td>
+                                        <td>0.50%</td>
+                                        <td><strong>0.75 ETH</strong></td>
+                                        <td>0.05 ETH</td>
+                                        <td><Button size="sm">Deposit</Button></td>
+                                        <td><Button size="sm">Withdraw</Button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AAVE</td>
+                                        <td>0.75%</td>
+                                        <td><strong>2.50 ETH</strong></td>
+                                        <td>0.50 ETH</td>
+                                        <td><Button size="sm">Deposit</Button></td>
+                                        <td><Button size="sm">Withdraw</Button></td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </Col>
-                    </Row>
-                    <Row>
-                        {balance > 0 ? depositBtn : <></>}
-                        {cEthBalance > 0 ? withdrawBtn : <></>}
                     </Row>
                 </Container>
             </FadeIn>
