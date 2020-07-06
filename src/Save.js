@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, Table} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, compoundAPYSelector, compoundEthBalanceSelector, balanceSelector, compoundUnderlyingBalanceSelector, accountSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, balanceSelector, compoundUnderlyingBalanceSelector, accountSelector} from './redux/selectors';
 import { convertWeiToEth } from './helpers';
 import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
@@ -12,7 +12,7 @@ import { topupWallet } from './redux/interactions/ramp';
 
 class Save extends Component {
     render() {
-        const {dispatch, compoundAPY, cEthBalance, balance, web3, compoundUnderlyingBalance, account} = this.props;
+        const {dispatch, compoundAPY, balance, web3, compoundUnderlyingBalance, account} = this.props;
 
         const ethCompoundUnderlyingBalance = convertWeiToEth(web3, compoundUnderlyingBalance);
 
@@ -81,7 +81,6 @@ function mapStateToProps(state){
         balance: balanceSelector(state),
         account: accountSelector(state),
         compoundAPY: compoundAPYSelector(state),
-        cEthBalance: compoundEthBalanceSelector(state),
         compoundUnderlyingBalance: compoundUnderlyingBalanceSelector(state),
 	}
 }

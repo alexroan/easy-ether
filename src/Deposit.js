@@ -19,8 +19,13 @@ class Deposit extends Component {
         const changeSaveValue = (e) => dispatch(setSupplyValue(e.target.value));
 
         const save = () => {
-            //TODO Handle pageParameter
-            supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
+            switch (pageParameter) {
+                case 'compound':
+                    supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
+                    break;
+                default:
+                    break;
+            }
         }
 
         const pageContent = () => {
