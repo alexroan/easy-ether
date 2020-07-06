@@ -8,8 +8,15 @@ import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
 import { topupWallet } from './redux/interactions/ramp';
 
-
-
+//TODO: 
+//  FOR MERGE:
+//    - Grey out withdraw and deposit buttons depending on balances
+//    - Provide topup on this page if no balances
+//  FUTURE:
+//    - Use logos of AAVE and Compound
+//    - Total balance across all pools
+//    - Value earned from interest in each pool (Easy in AAVE but hard in Compound)
+//    - Colour schemes on Deposit & Withdraw pages matching those of pools (purple for AAVE, green for Compound)
 class Save extends Component {
     render() {
         const {dispatch, compoundAPY, balance, web3, compoundUnderlyingBalance, account, aaveAPY, aaveUnderlyingBalance} = this.props;
