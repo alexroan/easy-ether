@@ -3,12 +3,14 @@ import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 import { BackButton } from './BackButton';
-import { underlyingBalanceSelector, web3Selector, withdrawingSelector, withdrawConfirmationNumberSelector, redeemValueSelector, cEthInstanceSelector, accountSelector, networkSelector } from './redux/selectors';
+import { compoundUnderlyingBalanceSelector, web3Selector, compoundWithdrawingSelector, compoundWithdrawConfirmationNumberSelector, compoundRedeemValueSelector, compoundEthInstanceSelector, accountSelector, networkSelector } from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import {setRedeemValue} from './redux/actions/compound';
 import { FadeInSpinner } from './FadeInSpinner';
 import { redeemEth } from './redux/interactions/compound';
 
+
+//TODO Handle pageParameter
 class Withdraw extends Component{
     render() {
 
@@ -19,6 +21,7 @@ class Withdraw extends Component{
         const changeRedeemValue = (e) => dispatch(setRedeemValue(e.target.value));
 
         const withdraw = () => {
+            //TODO handle pageParameter
             redeemEth(dispatch, cEthInstance, account, weiRedeemValue, web3, network);
         }
 
@@ -54,11 +57,11 @@ class Withdraw extends Component{
 function mapStateToProps(state){
 	return {
         web3: web3Selector(state),
-        underlyingBalance: underlyingBalanceSelector(state),
-        withdrawing: withdrawingSelector(state),
-        confirmationNumber: withdrawConfirmationNumberSelector(state),
-        redeemValue: redeemValueSelector(state),
-        cEthInstance: cEthInstanceSelector(state),
+        underlyingBalance: compoundUnderlyingBalanceSelector(state),
+        withdrawing: compoundWithdrawingSelector(state),
+        confirmationNumber: compoundWithdrawConfirmationNumberSelector(state),
+        redeemValue: compoundRedeemValueSelector(state),
+        cEthInstance: compoundEthInstanceSelector(state),
         account: accountSelector(state),
         network: networkSelector(state),
 	}

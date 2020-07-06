@@ -5,8 +5,8 @@ import {createSelector} from 'reselect';
 const ramp = state => get(state, 'app.ramp', null);
 export const rampSelector = createSelector(ramp, w => w);
 
-const cEthInstance = state => get(state, 'app.cEthInstance', null);
-export const cEthInstanceSelector = createSelector(cEthInstance, w => w);
+const compoundEthInstance = state => get(state, 'app.cEthInstance', null);
+export const compoundEthInstanceSelector = createSelector(compoundEthInstance, w => w);
 
 //ACCOUNT
 const loggingIn = state => get(state, 'account.loggingIn', false);
@@ -63,29 +63,29 @@ const aaveUserLiquidity = state => get(state, 'aave.userLiquidity', 0);
 export const aaveUserLiquiditySelector = createSelector(aaveUserLiquidity, w => w);
 
 //COMPOUND
-const apy = state => get(state, 'compound.apy', "");
-export const apySelector = createSelector(apy, w => w);
+const compoundAPY = state => get(state, 'compound.apy', "");
+export const compoundAPYSelector = createSelector(compoundAPY, w => w);
 
-const cEthBalance = state => get(state, 'compound.cEthBalance', 0);
-export const cEthBalanceSelector = createSelector(cEthBalance, w => w);
+const compoundEthBalance = state => get(state, 'compound.cEthBalance', 0);
+export const compoundEthBalanceSelector = createSelector(compoundEthBalance, w => w);
 
-const underlyingBalance = state => get(state, 'compound.underlyingBalance', 0);
-export const underlyingBalanceSelector = createSelector(underlyingBalance, w => w);
+const compoundUnderlyingBalance = state => get(state, 'compound.underlyingBalance', 0);
+export const compoundUnderlyingBalanceSelector = createSelector(compoundUnderlyingBalance, w => w);
 
-const supplyValue = state => get(state, 'compound.supplyValue', 0);
-export const supplyValueSelector = createSelector(supplyValue, w => w);
+const compoundSupplyValue = state => get(state, 'compound.supplyValue', 0);
+export const compoundSupplyValueSelector = createSelector(compoundSupplyValue, w => w);
 
-const depositing = state => get(state, 'compound.depositing', false);
-export const depositingSelector = createSelector(depositing, w => w);
+const compoundDepositing = state => get(state, 'compound.depositing', false);
+export const compoundDepositingSelector = createSelector(compoundDepositing, w => w);
 
-const depositConfirmationNumber = state => get(state, 'compound.depositConfirmationNumber', 0);
-export const depositConfirmationNumberSelector = createSelector(depositConfirmationNumber, w => w);
+const compoundDepositConfirmationNumber = state => get(state, 'compound.depositConfirmationNumber', 0);
+export const compoundDepositConfirmationNumberSelector = createSelector(compoundDepositConfirmationNumber, w => w);
 
-const redeemValue = state => get(state, 'compound.redeemValue', 0);
-export const redeemValueSelector = createSelector(redeemValue, w => w);
+const compoundRedeemValue = state => get(state, 'compound.redeemValue', 0);
+export const compoundRedeemValueSelector = createSelector(compoundRedeemValue, w => w);
 
-const withdrawing = state => get(state, 'compound.withdrawing', false);
-export const withdrawingSelector = createSelector(withdrawing, w => w);
+const compoundWithdrawing = state => get(state, 'compound.withdrawing', false);
+export const compoundWithdrawingSelector = createSelector(compoundWithdrawing, w => w);
 
-const withdrawConfirmationNumber = state => get(state, 'compound.withdrawConfirmationNumber', 0);
-export const withdrawConfirmationNumberSelector = createSelector(withdrawConfirmationNumber, w => w);
+const compoundWithdrawConfirmationNumber = state => get(state, 'compound.withdrawConfirmationNumber', 0);
+export const compoundWithdrawConfirmationNumberSelector = createSelector(compoundWithdrawConfirmationNumber, w => w);

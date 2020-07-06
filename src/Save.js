@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, Table} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthBalanceSelector, balanceSelector, underlyingBalanceSelector, accountSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, compoundEthBalanceSelector, balanceSelector, compoundUnderlyingBalanceSelector, accountSelector} from './redux/selectors';
 import { convertWeiToEth } from './helpers';
 import { selectPage } from './redux/actions/display';
 import { BackButton } from './BackButton';
@@ -12,9 +12,9 @@ import { topupWallet } from './redux/interactions/ramp';
 
 class Save extends Component {
     render() {
-        const {dispatch, apy, cEthBalance, balance, web3, underlyingBalance, account} = this.props;
+        const {dispatch, compoundAPY, cEthBalance, balance, web3, compoundUnderlyingBalance, account} = this.props;
 
-        const ethUnderlyingBalance = convertWeiToEth(web3, underlyingBalance);
+        const ethCompoundUnderlyingBalance = convertWeiToEth(web3, compoundUnderlyingBalance);
 
         const withdraw = (protocol) => {
             dispatch(selectPage("Withdraw", protocol));
@@ -53,8 +53,8 @@ class Save extends Component {
                                 <tbody>
                                     <tr>
                                         <td>Compound</td>
-                                        <td>{parseFloat(apy).toFixed(2)}%</td>
-                                        <td><strong>{parseFloat(ethUnderlyingBalance).toFixed(2)} ETH</strong></td>
+                                        <td>{parseFloat(compoundAPY).toFixed(2)}%</td>
+                                        <td><strong>{parseFloat(ethCompoundUnderlyingBalance).toFixed(2)} ETH</strong></td>
                                         <td>{actionButton(() => deposit("compound"), "Deposit")}</td>
                                         <td>{actionButton(() => withdraw("compound"), "Withdraw")}</td>
                                     </tr>
@@ -80,9 +80,9 @@ function mapStateToProps(state){
         web3: web3Selector(state),
         balance: balanceSelector(state),
         account: accountSelector(state),
-        apy: apySelector(state),
-        cEthBalance: cEthBalanceSelector(state),
-        underlyingBalance: underlyingBalanceSelector(state),
+        compoundAPY: compoundAPYSelector(state),
+        cEthBalance: compoundEthBalanceSelector(state),
+        compoundUnderlyingBalance: compoundUnderlyingBalanceSelector(state),
 	}
 }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Row, Col, Button, InputGroup, FormControl} from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
-import { web3Selector, apySelector, cEthInstanceSelector, accountSelector, balanceSelector, supplyValueSelector, networkSelector, depositingSelector, depositConfirmationNumberSelector, pageParameterSelector, aaveAPYSelector} from './redux/selectors';
+import { web3Selector, compoundAPYSelector, compoundEthInstanceSelector, accountSelector, balanceSelector, compoundSupplyValueSelector, networkSelector, compoundDepositingSelector, compoundDepositConfirmationNumberSelector, pageParameterSelector, aaveAPYSelector} from './redux/selectors';
 import { convertWeiToEth, convertEthToWei } from './helpers';
 import { setSupplyValue } from './redux/actions/compound';
 import { BackButton } from './BackButton';
@@ -19,7 +19,7 @@ class Deposit extends Component {
         const changeSaveValue = (e) => dispatch(setSupplyValue(e.target.value));
 
         const save = () => {
-
+            //TODO Handle pageParameter
             supplyEth(dispatch, cEthInstance, account, weiSupplyValue, web3, network);
         }
 
@@ -56,7 +56,7 @@ function mapStateToProps(state){
     let apy = null;
     switch (pageParameter) {
         case 'compound':
-            apy = apySelector(state);
+            apy = compoundAPYSelector(state);
             break;
         case 'aave':
             apy = aaveAPYSelector(state);
@@ -71,11 +71,11 @@ function mapStateToProps(state){
         account: accountSelector(state),
         balance: balanceSelector(state),
         network: networkSelector(state),
-        supplyValue: supplyValueSelector(state),
+        supplyValue: compoundSupplyValueSelector(state),
         apy: apy,
-        cEthInstance: cEthInstanceSelector(state),
-        depositing: depositingSelector(state),
-        confirmationNumber: depositConfirmationNumberSelector(state)
+        cEthInstance: compoundEthInstanceSelector(state),
+        depositing: compoundDepositingSelector(state),
+        confirmationNumber: compoundDepositConfirmationNumberSelector(state)
 	}
 }
 
