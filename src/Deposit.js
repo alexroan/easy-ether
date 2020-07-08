@@ -39,6 +39,7 @@ class Deposit extends Component {
                         <Row>
                             <Col className="text-center">
                                 <BackButton dispatch={dispatch} pageName="Save" />
+                                <p>Balance Available: {parseFloat(ethBalance).toFixed(5)} ETH</p>
                                 <InputGroup className="mb-3">
                                     <InputGroup.Prepend>
                                         <InputGroup.Text id="basic-addon1">ETH</InputGroup.Text>
