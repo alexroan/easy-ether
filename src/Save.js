@@ -9,10 +9,6 @@ import { BackButton } from './BackButton';
 import { topupWallet } from './redux/interactions/ramp';
 
 //TODO: 
-//  FOR MERGE:
-//    - Grey out withdraw and deposit buttons depending on balances
-//    - Provide topup on this page if no balances
-//  FUTURE:
 //    - Use logos of AAVE and Compound
 //    - Total balance across all pools
 //    - Value earned from interest in each pool (Easy in AAVE but hard in Compound)
@@ -36,8 +32,8 @@ class Save extends Component {
             topupWallet(dispatch, account);
         }
 
-        const actionButton = (clickAction, text) => {
-            return (<Button size="sm" onClick={clickAction}>
+        const actionButton = (clickAction, text, disabled=false) => {
+            return (<Button disabled={disabled} size="sm" onClick={clickAction}>
                 {text}
             </Button>);
         }
@@ -48,6 +44,7 @@ class Save extends Component {
                     <Row>
                         <Col className="text-center">
                             <BackButton dispatch={dispatch} pageName="Account" />
+                            {(balance.toString() === "0") ? <p>You have no ETH in your wallet. Why not <Button size="sm" onClick={topup}>Topup</Button> ?</p> : <></>}
                             <Table>
                                 <thead>
                                     <tr>
@@ -62,15 +59,15 @@ class Save extends Component {
                                         <td>Compound</td>
                                         <td>{parseFloat(compoundAPY).toFixed(2)}%</td>
                                         <td><strong>{parseFloat(ethCompoundUnderlyingBalance).toFixed(2)} ETH</strong></td>
-                                        <td>{actionButton(() => deposit("compound"), "Deposit")}</td>
-                                        <td>{actionButton(() => withdraw("compound"), "Withdraw")}</td>
+                                        <td>{actionButton(() => deposit("compound"), "Deposit", (balance.toString() === "0"))}</td>
+                                        <td>{actionButton(() => withdraw("compound"), "Withdraw", (compoundUnderlyingBalance.toString() === "0"))}</td>
                                     </tr>
                                     <tr>
                                         <td>AAVE</td>
                                         <td>{parseFloat(aaveAPY).toFixed(2)}%</td>
                                         <td><strong>{parseFloat(ethAaveUnderlyingBalance).toFixed(2)} ETH</strong></td>
-                                        <td>{actionButton(() => deposit("aave"), "Deposit")}</td>
-                                        <td>{actionButton(() => withdraw("aave"), "Withdraw")}</td>
+                                        <td>{actionButton(() => deposit("aave"), "Deposit", (balance.toString() === "0"))}</td>
+                                        <td>{actionButton(() => withdraw("aave"), "Withdraw", (aaveUnderlyingBalance.toString() === "0"))}</td>
                                     </tr>
                                 </tbody>
                             </Table>
